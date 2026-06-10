@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SkullyPlayer - Premium Audio</title>
     <!-- Tailwind CSS for high-fidelity responsive styling -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -83,6 +83,7 @@
             cursor: pointer;
             margin: 0;
             padding: 0;
+            touch-action: pan-x;
         }
 
         input[type="range"].app-progress-bar::-webkit-slider-runnable-track {
@@ -94,11 +95,11 @@
         input[type="range"].app-progress-bar::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 9999px;
             background: #ffffff;
-            margin-top: -4px;
+            margin-top: -5px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
             transition: transform 0.1s ease;
         }
@@ -114,8 +115,8 @@
             border-radius: 9999px;
         }
         input[type="range"].app-progress-bar::-moz-range-thumb {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border: 0;
             border-radius: 9999px;
             background: #ffffff;
@@ -138,7 +139,7 @@
         }
     </style>
 </head>
-<body class="h-screen flex flex-col overflow-hidden select-none">
+<body class="h-[100dvh] flex flex-col overflow-hidden select-none">
 
     <!-- GPU-Accelerated Background Canvas Layer -->
     <div id="app-bg-container" class="fixed inset-0 -z-10 w-full h-full">
@@ -247,7 +248,8 @@
                     <div class="space-y-4">
                         <div class="space-y-1.5">
                             <label class="text-[9px] font-bold uppercase tracking-wider theme-text-sub">Playlist Name</label>
-                            <input type="text" id="playlist-name-input" placeholder="e.g. Study Mix, Gaming Beats..." class="w-full bg-black/20 px-3.5 py-2.5 text-xs text-white placeholder-gray-600 outline-none border theme-border rounded-xl focus:border-orange-500/50 transition">
+                            <!-- Text-base used to prevent auto-zooming on iOS -->
+                            <input type="text" id="playlist-name-input" placeholder="e.g. Study Mix, Gaming Beats..." class="w-full bg-black/20 px-3.5 py-2.5 text-[16px] text-white placeholder-gray-600 outline-none border theme-border rounded-xl focus:border-orange-500/50 transition">
                         </div>
 
                         <div class="space-y-1.5">
@@ -260,7 +262,7 @@
                                 </label>
                                 <!-- Thumbnail Preview Area -->
                                 <div id="playlist-cover-preview-wrapper" class="w-10 h-10 rounded-lg border theme-border hidden overflow-hidden bg-black/40">
-                                    <img id="playlist-cover-preview" class="w-full h-full object-cover">
+                                    <img id="playlist-cover-preview" class="w-full h-full object-cover animate-fade">
                                 </div>
                             </div>
                         </div>
@@ -347,12 +349,15 @@
                         </div>
 
                         <!-- Volume Controls - Aligned beautifully with real-time percentage text label -->
-                        <div class="flex items-center gap-2.5 shrink-0 sm:max-w-[170px] w-full sm:w-auto bg-black/20 px-3 py-1.5 rounded-lg border theme-border h-10 select-none justify-between">
-                            <button onclick="toggleMute()" id="player-btn-volume" class="theme-text-sub hover:theme-accent-color transition flex items-center justify-center shrink-0 w-5 h-5">
-                                <i class="fa-solid fa-volume-high text-[10px] self-center"></i>
-                            </button>
-                            <input type="range" id="deck-volume-slider" min="0" max="100" value="80" oninput="adjustVolume(this.value)" class="w-full sm:w-20 app-progress-bar outline-none">
-                            <span id="deck-volume-percentage" class="text-[9px] font-mono theme-text-sub w-8 text-right shrink-0">80%</span>
+                        <div class="flex flex-col space-y-1 shrink-0 sm:max-w-[190px] w-full sm:w-auto">
+                            <div class="flex items-center gap-2.5 bg-black/20 px-3 py-1.5 rounded-lg border theme-border h-10 select-none justify-between">
+                                <button onclick="toggleMute()" id="player-btn-volume" class="theme-text-sub hover:theme-accent-color transition flex items-center justify-center shrink-0 w-5 h-5">
+                                    <i class="fa-solid fa-volume-high text-[10px] self-center"></i>
+                                </button>
+                                <input type="range" id="deck-volume-slider" min="0" max="100" value="80" oninput="adjustVolume(this.value)" class="w-full sm:w-20 app-progress-bar outline-none">
+                                <span id="deck-volume-percentage" class="text-[9px] font-mono theme-text-sub w-8 text-right shrink-0">80%</span>
+                            </div>
+                            <span id="ios-volume-notice" class="text-[8px] text-zinc-500 text-right hidden font-medium"></span>
                         </div>
                     </div>
 
@@ -489,7 +494,7 @@
                                 <span class="text-[8px] font-semibold text-gray-400">Accent</span>
                             </div>
                         </div>
-                        <!-- Progress Bars Color Picker (Requested) -->
+                        <!-- Progress Bars Color Picker -->
                         <div class="space-y-1.5">
                             <label class="text-[8px] font-bold uppercase tracking-wider theme-text-sub block">Progress</label>
                             <div class="flex items-center gap-2 bg-black/20 p-1 border theme-border rounded-lg h-9">
@@ -565,13 +570,13 @@
                         </div>
                     </div>
 
-                    <!-- Reset App Session Cache -->
-                    <div class="flex items-center justify-between bg-red-950/10 border border-red-900/20 p-3 rounded-lg">
-                        <div class="flex flex-col">
-                            <span class="text-[9px] font-bold text-red-400">Clear Application Session</span>
-                            <span class="text-[7px] text-red-300/60 leading-normal">Instantly wipe loaded audio tracks, clear memory buffers, and start a fresh workspace.</span>
+                    <!-- Reset App Session Cache (Fixed text wrapping and button layout for mobile) -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 bg-red-950/10 border border-red-900/20 p-4 rounded-xl">
+                        <div class="flex flex-col text-left">
+                            <span class="text-[10px] font-bold text-red-400">Clear Application Session</span>
+                            <span class="text-[8px] text-red-300/60 leading-normal mt-0.5">Instantly wipe loaded audio tracks, clear memory database buffers, and start a fresh workspace.</span>
                         </div>
-                        <button onclick="resetAppCache()" class="px-3.5 py-2 bg-red-600 hover:bg-red-700 text-white text-[9px] font-bold rounded-lg transition-all active:scale-95 flex items-center gap-1.5 shadow-md shrink-0">
+                        <button onclick="resetAppCache()" class="w-full sm:w-auto px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold rounded-lg transition-all active:scale-95 flex items-center justify-center gap-1.5 shadow-md shrink-0">
                             <i class="fa-solid fa-trash-can text-[8px]"></i> Clear Cache
                         </button>
                     </div>
@@ -590,21 +595,21 @@
 
     </main>
 
-    <!-- EDIT TRACK INFO MODAL (Clean custom overlay modal box) -->
+    <!-- EDIT TRACK INFO MODAL (Form Inputs strictly set to text-[16px] to prevent Safari iOS auto-zoom) -->
     <div id="edit-song-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
         <div class="theme-card-bg p-5 rounded-2xl max-w-sm w-full mx-4 space-y-4 border theme-border shadow-2xl">
             <div class="flex items-center justify-between border-b theme-border pb-2.5">
                 <h3 class="text-xs font-black uppercase tracking-wider theme-text-main">Edit Track Info</h3>
                 <button onclick="closeEditSongModal()" class="theme-text-sub hover:theme-accent-color"><i class="fa-solid fa-xmark text-xs"></i></button>
             </div>
-            <div class="space-y-3">
+            <div class="space-y-3 text-left">
                 <div class="space-y-1">
                     <label class="text-[9px] font-bold uppercase tracking-wider theme-text-sub">Song Title</label>
-                    <input type="text" id="edit-song-title-input" class="w-full bg-black/20 px-3 py-2.5 text-xs text-white placeholder-gray-600 outline-none border theme-border rounded-xl focus:border-orange-500/50 transition">
+                    <input type="text" id="edit-song-title-input" class="w-full bg-black/20 px-3.5 py-2.5 text-[16px] text-white placeholder-gray-600 outline-none border theme-border rounded-xl focus:border-orange-500/50 transition">
                 </div>
                 <div class="space-y-1">
                     <label class="text-[9px] font-bold uppercase tracking-wider theme-text-sub">Artist Name</label>
-                    <input type="text" id="edit-song-artist-input" class="w-full bg-black/20 px-3 py-2.5 text-xs text-white placeholder-gray-600 outline-none border theme-border rounded-xl focus:border-orange-500/50 transition">
+                    <input type="text" id="edit-song-artist-input" class="w-full bg-black/20 px-3.5 py-2.5 text-[16px] text-white placeholder-gray-600 outline-none border theme-border rounded-xl focus:border-orange-500/50 transition">
                 </div>
             </div>
             <div class="flex justify-end gap-2 pt-2 border-t theme-border">
@@ -614,20 +619,20 @@
         </div>
     </div>
 
-    <!-- Bottom Navigation Bar -->
-    <nav class="h-14 border-t flex items-center justify-around shrink-0 relative z-30 theme-nav-bg">
+    <!-- Bottom Navigation Bar with mobile-safe padding offsets -->
+    <nav class="pb-[env(safe-area-inset-bottom,12px)] pt-2 border-t flex items-center justify-around shrink-0 relative z-30 theme-nav-bg">
         <!-- Home Button -->
-        <button onclick="switchTab('home')" id="nav-btn-home" class="flex flex-col items-center justify-center w-20 h-full theme-accent-color transition-all">
+        <button onclick="switchTab('home')" id="nav-btn-home" class="flex flex-col items-center justify-center w-20 h-10 theme-accent-color transition-all">
             <i class="fa-solid fa-house text-sm"></i>
             <span class="text-[8px] mt-1 font-bold tracking-wider uppercase">Home</span>
         </button>
         <!-- Playlist Button -->
-        <button onclick="switchTab('playlist')" id="nav-btn-playlist" class="flex flex-col items-center justify-center w-20 h-full theme-text-sub hover:text-white transition-all">
+        <button onclick="switchTab('playlist')" id="nav-btn-playlist" class="flex flex-col items-center justify-center w-20 h-10 theme-text-sub hover:text-white transition-all">
             <i class="fa-solid fa-music text-sm"></i>
             <span class="text-[8px] mt-1 font-bold tracking-wider uppercase">Playlist</span>
         </button>
         <!-- Settings Button -->
-        <button onclick="switchTab('settings')" id="nav-btn-settings" class="flex flex-col items-center justify-center w-20 h-full theme-text-sub hover:text-white transition-all">
+        <button onclick="switchTab('settings')" id="nav-btn-settings" class="flex flex-col items-center justify-center w-20 h-10 theme-text-sub hover:text-white transition-all">
             <i class="fa-solid fa-sliders text-sm"></i>
             <span class="text-[8px] mt-1 font-bold tracking-wider uppercase">Settings</span>
         </button>
@@ -695,6 +700,16 @@
 
         // Initialize state on render
         window.addEventListener('DOMContentLoaded', () => {
+            // Check if device is iOS (iPhone/iPad) to display the volume limit notice
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            if (isIOS) {
+                const notice = document.getElementById('ios-volume-notice');
+                if (notice) {
+                    notice.textContent = "iOS overrides slider with master physical keys";
+                    notice.classList.remove('hidden');
+                }
+            }
+
             initIndexedDB(() => {
                 updateTracksUI();
                 updatePlaylistsUI();
@@ -832,13 +847,17 @@
                 const navBtn = document.getElementById(`nav-btn-${tab}`);
                 
                 if (tab === targetTab) {
-                    section.classList.remove('opacity-0', 'pointer-events-none');
-                    section.classList.add('opacity-100');
-                    navBtn.style.color = "var(--musi-orange)";
+                    if (section) {
+                        section.classList.remove('opacity-0', 'pointer-events-none');
+                        section.classList.add('opacity-100');
+                    }
+                    if (navBtn) navBtn.style.color = "var(--musi-orange)";
                 } else {
-                    section.classList.add('opacity-0', 'pointer-events-none');
-                    section.classList.remove('opacity-100');
-                    navBtn.style.color = "var(--text-sub)";
+                    if (section) {
+                        section.classList.add('opacity-0', 'pointer-events-none');
+                        section.classList.remove('opacity-100');
+                    }
+                    if (navBtn) navBtn.style.color = "var(--text-sub)";
                 }
             });
         }
@@ -908,11 +927,11 @@
                 });
 
                 const row = document.createElement('div');
-                row.className = "flex items-center justify-between p-2.5 bg-black/40 border theme-border rounded-lg select-none";
+                row.className = "flex items-center justify-between p-3 bg-black/40 border theme-border rounded-lg select-none";
                 
                 row.innerHTML = `
-                    <div class="flex items-center gap-2 overflow-hidden flex-1 min-w-0 pr-2">
-                        <div class="w-7 h-7 rounded bg-black/60 border theme-border flex items-center justify-center shrink-0">
+                    <div class="flex items-center gap-2.5 overflow-hidden flex-1 min-w-0 pr-2">
+                        <div class="w-8 h-8 rounded-lg bg-black/60 border theme-border flex items-center justify-center shrink-0">
                             <i class="fa-solid fa-music text-[9px] theme-accent-color"></i>
                         </div>
                         <div class="overflow-hidden text-left flex-1">
@@ -1502,6 +1521,7 @@
             }
         }
 
+        // HTML5 Audio volume state sync updates
         function toggleMute() {
             const volSlider = document.getElementById('deck-volume-slider');
             const percentageLabel = document.getElementById('deck-volume-percentage');
@@ -1536,7 +1556,7 @@
             }
         }
 
-        // Toggle repeat single loop - re-engineered ended event rules
+        // Toggle repeat single loop
         function toggleRepeat() {
             isRepeat = !isRepeat;
             const btn = document.getElementById('player-btn-repeat');
@@ -1547,13 +1567,13 @@
             }
         }
 
-        // Re-engineered loop-playback end of track rules (No wrap-auto playback when Loop Off)
+        // Re-engineered loop-playback end of track rules
         audioPlayer.addEventListener('ended', () => {
             if (isRepeat) {
                 audioPlayer.currentTime = 0;
                 audioPlayer.play();
             } else {
-                // If loop is off, immediately pause and stop, reset progress to 00:00
+                // Stop instantly on track completion if Loop is Off
                 audioPlayer.pause();
                 audioPlayer.currentTime = 0;
                 const activePl = playlistsDatabase.find(pl => pl.id === currentlyPlayingPlaylistId);
