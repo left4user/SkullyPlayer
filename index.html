@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SkullyPlayer - Premium Audio</title>
-    <!-- Tailwind CSS for high-fidelity responsive styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for clean vector icons (No emojis) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style id="custom-theme-variables">
-        /* Dynamic Theme Variables governed by CSS variables for real-time live application rendering */
         :root {
             --musi-orange: #ff5e3a;
             --slider-fill-color: #ff5e3a;
@@ -30,48 +27,30 @@
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             transition: color 0.3s ease;
-            background-color: #070709; /* Fallback base color */
+            background-color: #070709;
         }
 
-        /* Dedicated hardware-accelerated background layer to keep GIFs looping without browser lag */
         #app-bg-container {
             background: var(--body-bg);
             will-change: transform;
-            transform: translateZ(0); /* Force GPU compositing layer */
+            transform: translateZ(0);
             transition: background 0.3s ease;
         }
         
-        .theme-accent-color {
-            color: var(--musi-orange);
-        }
-        .theme-accent-bg {
-            background-color: var(--musi-orange);
-        }
-        .theme-header-bg {
-            background-color: var(--header-bg);
-            border-bottom-color: var(--border-color);
-        }
-        .theme-nav-bg {
-            background-color: var(--nav-bg);
-            border-top-color: var(--border-color);
-        }
+        .theme-accent-color { color: var(--musi-orange); }
+        .theme-accent-bg { background-color: var(--musi-orange); }
+        .theme-header-bg { background-color: var(--header-bg); border-bottom-color: var(--border-color); }
+        .theme-nav-bg { background-color: var(--nav-bg); border-top-color: var(--border-color); }
         .theme-card-bg {
             background: var(--card-bg);
             backdrop-filter: blur(var(--card-blur));
             border: 1px solid var(--border-color);
             transition: backdrop-filter 0.2s ease, background 0.2s ease;
         }
-        .theme-border {
-            border-color: var(--border-color);
-        }
-        .theme-text-main {
-            color: var(--text-main);
-        }
-        .theme-text-sub {
-            color: var(--text-sub);
-        }
+        .theme-border { border-color: var(--border-color); }
+        .theme-text-main { color: var(--text-main); }
+        .theme-text-sub { color: var(--text-sub); }
 
-        /* Spotify & YouTube-Inspired Custom Range Sliders */
         input[type="range"].app-progress-bar {
             -webkit-appearance: none;
             appearance: none;
@@ -85,86 +64,49 @@
             padding: 0;
             touch-action: pan-x;
         }
-
         input[type="range"].app-progress-bar::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 4px;
-            border-radius: 9999px;
+            width: 100%; height: 4px; border-radius: 9999px;
         }
-
         input[type="range"].app-progress-bar::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 14px;
-            height: 14px;
-            border-radius: 9999px;
-            background: #ffffff;
-            margin-top: -5px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+            -webkit-appearance: none; appearance: none;
+            width: 14px; height: 14px; border-radius: 9999px;
+            background: #ffffff; margin-top: -5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.4);
             transition: transform 0.1s ease;
         }
-
-        input[type="range"].app-progress-bar::-webkit-slider-thumb:hover {
-            transform: scale(1.25);
-        }
-
-        /* Firefox Support */
-        input[type="range"].app-progress-bar::-moz-range-track {
-            width: 100%;
-            height: 4px;
-            border-radius: 9999px;
-        }
+        input[type="range"].app-progress-bar::-webkit-slider-thumb:hover { transform: scale(1.25); }
+        input[type="range"].app-progress-bar::-moz-range-track { width: 100%; height: 4px; border-radius: 9999px; }
         input[type="range"].app-progress-bar::-moz-range-thumb {
-            width: 14px;
-            height: 14px;
-            border: 0;
-            border-radius: 9999px;
-            background: #ffffff;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+            width: 14px; height: 14px; border: 0; border-radius: 9999px;
+            background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.4);
         }
 
-        /* Sleek compact scrollbar */
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #070709;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #27272a;
-            border-radius: 2px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--musi-orange);
-        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #070709; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--musi-orange); }
     </style>
 </head>
 <body class="h-[100dvh] flex flex-col overflow-hidden select-none">
 
-    <!-- GPU-Accelerated Background Canvas Layer -->
     <div id="app-bg-container" class="fixed inset-0 -z-10 w-full h-full">
         <img id="app-bg-image" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300 pointer-events-none" alt="Wallpaper Background">
     </div>
 
-    <!-- Top Premium Brand Header -->
     <header class="h-12 border-b flex items-center justify-between px-4 sm:px-6 shrink-0 theme-header-bg z-20">
         <span class="font-black text-sm sm:text-base tracking-widest theme-text-main">SKULLYPLAYER</span>
     </header>
 
-    <!-- Main Content Container (Dynamic Tab Switcher) -->
     <main class="flex-1 overflow-hidden relative">
 
-        <!-- TAB 1: HOMEPAGE (UPLOAD INTERFACE - Streamlined Strict Vertical Flow) -->
+        <!-- TAB 1: HOME -->
         <section id="tab-content-home" class="absolute inset-0 flex flex-col p-3 sm:p-4 overflow-y-auto max-w-2xl mx-auto space-y-3 transition-all duration-200">
-            
-            <!-- 1. Quick-Start Walkthrough & Install App Combined Card (Tighter Layout) -->
             <div class="theme-card-bg rounded-xl p-3.5 space-y-3 shadow-lg">
                 <div class="flex items-center gap-2 border-b theme-border pb-1.5">
                     <i class="fa-solid fa-graduation-cap theme-accent-color text-xs"></i>
                     <h4 class="text-[10px] font-bold uppercase tracking-wider theme-text-main">How it works & App Install</h4>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                    <!-- Steps column -->
                     <div class="space-y-2">
                         <div class="flex items-start gap-2">
                             <div class="w-4 h-4 rounded-full bg-black/40 text-[9px] font-bold theme-accent-color flex items-center justify-center shrink-0 mt-0.5">1</div>
@@ -179,7 +121,6 @@
                             <p class="text-[10px] theme-text-sub leading-normal">Tap Playlist to open your folders and play your music natively.</p>
                         </div>
                     </div>
-                    <!-- Installation steps -->
                     <div class="bg-black/20 p-2.5 rounded-lg border theme-border space-y-1.5">
                         <h5 class="text-[9px] font-black uppercase tracking-wider theme-text-main flex items-center gap-1.5">
                             <i class="fa-solid fa-mobile-screen-button theme-accent-color"></i> Add to Home Screen
@@ -198,7 +139,6 @@
                 </div>
             </div>
 
-            <!-- 2. Drag and Drop Interactive Upload Area -->
             <div id="dropzone" onclick="triggerFileInput()" class="border-2 border-dashed border-gray-700/60 hover:border-orange-500 rounded-xl p-4 sm:p-5 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 bg-black/20 group min-h-[110px]">
                 <input type="file" id="file-input" accept="audio/mp3, audio/*" multiple class="hidden" onchange="handleFileSelection(event)">
                 <div class="w-8 h-8 rounded-xl bg-black/40 border theme-border flex items-center justify-center mb-1.5 group-hover:scale-105 transition-transform duration-200">
@@ -210,11 +150,9 @@
                 </p>
             </div>
 
-            <!-- 3. Imported Queue -->
             <div class="space-y-1.5 flex-1 flex flex-col min-h-[150px]">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-1 border-b theme-border gap-2">
                     <h3 class="text-[10px] font-bold uppercase tracking-wider theme-text-sub">Imported Queue</h3>
-                    <!-- Smart Search Filter: Home Queue (Feature 6) -->
                     <div class="relative w-full sm:w-48">
                         <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center text-zinc-500">
                             <i class="fa-solid fa-magnifying-glass text-[10px]"></i>
@@ -222,38 +160,24 @@
                         <input type="text" id="home-queue-search" oninput="updateTracksUI()" placeholder="Search imported queue..." class="w-full bg-black/40 pl-7 pr-2.5 py-1 text-[11px] text-white placeholder-gray-600 outline-none border theme-border rounded-lg focus:border-orange-500/50">
                     </div>
                 </div>
-
-                <!-- Bulk Actions Bar -->
                 <div id="bulk-actions-bar" class="hidden flex items-center justify-between bg-black/25 px-3 py-1.5 rounded-lg border theme-border mb-1.5 animate-fade-in select-none">
                     <span class="text-[9px] font-black uppercase tracking-wider theme-text-sub">Bulk Actions:</span>
                     <div class="flex items-center gap-2">
-                        <select id="bulk-playlist-select" class="bg-black/40 border theme-border rounded px-2 py-1 text-[10px] font-bold theme-accent-color outline-none cursor-pointer max-w-[120px]">
-                            <!-- Options populate programmatically -->
-                        </select>
+                        <select id="bulk-playlist-select" class="bg-black/40 border theme-border rounded px-2 py-1 text-[10px] font-bold theme-accent-color outline-none cursor-pointer max-w-[120px]"></select>
                         <button onclick="bulkAddSongsToPlaylist()" class="px-3.5 py-1 theme-accent-bg text-white text-[9px] font-black uppercase tracking-wider rounded transition active:scale-95 shadow-md">Add All</button>
                     </div>
                 </div>
-
-                <!-- Empty State Message -->
                 <div id="empty-queue-state" class="flex-1 border border-dashed theme-border rounded-xl flex flex-col items-center justify-center text-center p-4 bg-black/10">
                     <i class="fa-solid fa-folder-open text-lg text-gray-800 mb-1"></i>
                     <p class="text-[10px] theme-text-sub">Your local library is currently empty.</p>
                 </div>
-
-                <!-- Scrollable Track List Container -->
-                <div id="uploaded-tracks-list" class="space-y-1.5 hidden overflow-y-auto max-h-[190px] pr-1">
-                    <!-- Dynamic Read-Only Rows Append Here -->
-                </div>
+                <div id="uploaded-tracks-list" class="space-y-1.5 hidden overflow-y-auto max-h-[190px] pr-1"></div>
             </div>
         </section>
 
-        <!-- TAB 2: PLAYLIST (CREATION SHELF & INSIDE PLAYLIST DECK MULTI-BOX PORTAL) -->
+        <!-- TAB 2: PLAYLIST -->
         <section id="tab-content-playlist" class="absolute inset-0 flex flex-col p-4 sm:p-5 overflow-y-auto max-w-5xl mx-auto space-y-4 transition-all duration-200 opacity-0 pointer-events-none">
-            
-            <!-- VIEW A: PLAYLIST LIST & CREATOR LANDING SHELF -->
             <div id="playlist-view-shelf" class="space-y-4 max-w-2xl mx-auto w-full">
-                
-                <!-- NOW PLAYING PLAYLIST CONTEXT BAR (Jump directly to player banner) -->
                 <div id="now-playing-playlist-bar" class="hidden theme-card-bg rounded-xl p-3.5 flex items-center justify-between border theme-border shadow-md animate-fade-in">
                     <div class="flex items-center gap-2.5">
                         <div class="w-8 h-8 rounded bg-black/40 border theme-border flex items-center justify-center shrink-0">
@@ -267,7 +191,6 @@
                     <button onclick="jumpToPlayingPlaylist()" class="bg-black/35 px-3 py-1.5 border theme-border rounded text-[9px] font-black uppercase tracking-wider theme-accent-color hover:text-white transition">Jump to Player</button>
                 </div>
 
-                <!-- NEW SEGMENT: Playlist Folder Management (Feature 3) -->
                 <div class="theme-card-bg rounded-2xl p-4 space-y-3.5 shadow-lg border theme-border">
                     <div class="flex items-center justify-between border-b theme-border pb-2">
                         <div class="flex items-center gap-2">
@@ -279,23 +202,16 @@
                         <input type="text" id="folder-name-input" placeholder="Create new folder category (e.g. Chill, Rock)..." class="flex-1 bg-black/20 px-3 py-2 text-xs text-white placeholder-gray-600 outline-none border theme-border rounded-xl focus:border-orange-500/50 transition">
                         <button onclick="createNewFolder()" class="px-4 py-2 theme-accent-bg text-white text-xs font-bold rounded-xl hover:bg-opacity-90 transition active:scale-95 shadow-md">Create Folder</button>
                     </div>
-                    <!-- Horizontal Folders list -->
-                    <div id="folders-container" class="flex gap-2 overflow-x-auto pb-1 select-none">
-                        <!-- Folders append here dynamically -->
-                    </div>
+                    <div id="folders-container" class="flex gap-2 overflow-x-auto pb-1 select-none"></div>
                 </div>
 
-                <!-- Dynamic Playlist Creation Box -->
                 <div class="theme-card-bg rounded-2xl p-5 space-y-5 shadow-2xl">
-                    <!-- Section Header -->
                     <div class="flex items-center justify-between border-b theme-border pb-3">
                         <div class="flex items-center gap-2.5">
                             <i class="fa-solid fa-folder-plus theme-accent-color text-sm"></i>
                             <h4 class="text-xs font-black uppercase tracking-wider theme-text-main">Playlist Creator</h4>
                         </div>
                     </div>
-
-                    <!-- Creator Inputs: Name, Custom Cover Image & Folder selector -->
                     <div class="space-y-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                             <div class="space-y-1.5">
@@ -306,65 +222,50 @@
                                 <label class="text-[9px] font-bold uppercase tracking-wider theme-text-sub">Assign to Folder</label>
                                 <select id="playlist-folder-select" class="w-full bg-black/20 px-3.5 py-2.5 text-xs text-white outline-none border theme-border rounded-xl focus:border-orange-500/50 transition">
                                     <option value="" class="bg-zinc-950 text-white">None (Root Directory)</option>
-                                    <!-- Dynamic folder options go here -->
                                 </select>
                             </div>
                         </div>
-
                         <div class="space-y-1.5">
                             <label class="text-[9px] font-bold uppercase tracking-wider theme-text-sub">Playlist Cover Picture</label>
                             <div class="flex items-center gap-3">
-                                <label class="flex items-center justify-center gap-2 bg-black/20 px-4 py-2.5 border theme-border rounded-xl cursor-pointer hover:border-orange-500/50 transition-all text-xs font-bold">
+                                <label class="flex items-center justify-center gap-2 bg-black/20 px-4 py-2.5 border theme-border rounded-xl cursor-pointer hover:border-[#ff5e3a] transition-all text-xs font-bold">
                                     <i class="fa-solid fa-image theme-accent-color text-[11px]"></i>
                                     <span class="text-[10px] theme-text-sub" id="playlist-cover-btn-text">Choose Cover Picture</span>
                                     <input type="file" id="playlist-cover-input" accept="image/*" class="hidden" onchange="handlePlaylistCoverSelection(event)">
                                 </label>
-                                <!-- Thumbnail Preview Area -->
                                 <div id="playlist-cover-preview-wrapper" class="w-10 h-10 rounded-lg border theme-border hidden overflow-hidden bg-black/40">
                                     <img id="playlist-cover-preview" class="w-full h-full object-cover animate-fade animate-duration-300">
                                 </div>
                             </div>
                         </div>
-
                         <button onclick="createNewPlaylist()" class="w-full py-3 theme-accent-bg text-white text-xs font-bold rounded-xl hover:bg-opacity-90 transition-all active:scale-95 shadow-md">Create Playlist</button>
                     </div>
-
-                    <!-- Playlist Deck Shelf Queue -->
                     <div class="space-y-2 border-t theme-border pt-4">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-1.5">
                                 <i class="fa-solid fa-list-ul theme-accent-color text-[10px]"></i>
                                 <span class="text-[9px] font-bold uppercase tracking-wider theme-text-sub" id="shelf-heading-title">My Playlists</span>
                             </div>
-                            <!-- Back from Folder view btn -->
                             <button id="folder-back-btn" onclick="clearActiveFolderFilter()" class="hidden text-[9px] font-bold uppercase tracking-wider text-orange-500 hover:text-white transition">Show All Playlists</button>
                         </div>
-
-                        <!-- Scrollable Shelf List -->
                         <div id="playlist-shelf" class="space-y-2 max-h-[300px] overflow-y-auto pr-1">
-                            <!-- Playlists Empty State -->
                             <div id="playlist-shelf-empty" class="py-12 text-center flex flex-col items-center justify-center">
                                 <i class="fa-solid fa-folder-open text-2xl text-zinc-700 mb-2"></i>
                                 <p class="text-[11px] theme-text-sub max-w-xs leading-relaxed">No playlists created yet. Create one above to start organizing your files.</p>
                             </div>
-                            <!-- Playlists Stack List -->
                             <div id="playlist-shelf-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 hidden"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- VIEW B: INSIDE INDIVIDUAL PLAYLIST WORKSPACE -->
+            <!-- VIEW B: INSIDE PLAYLIST -->
             <div id="playlist-view-portal" class="w-full hidden space-y-4 max-w-2xl mx-auto">
-                
-                <!-- Back Button Navigation Row -->
                 <div class="flex items-center justify-between">
                     <button onclick="exitPlaylistPortal()" class="flex items-center gap-2 bg-black/40 hover:bg-black/60 border theme-border px-3.5 py-1.5 rounded-lg text-xs font-bold theme-text-main transition active:scale-95 shadow-md">
                         <i class="fa-solid fa-arrow-left text-[10px] theme-accent-color"></i> Back to Playlists
                     </button>
                 </div>
-
-                <!-- BOX 1: PLAYLIST CONFIG STATUS BAR (Top) -->
                 <div class="theme-card-bg rounded-xl p-3.5 flex items-center justify-between shadow-md border theme-border">
                     <div class="flex items-center gap-2.5">
                         <div id="portal-header-cover" class="w-8 h-8 rounded bg-black/40 border theme-border overflow-hidden flex items-center justify-center shrink-0">
@@ -374,8 +275,6 @@
                     </div>
                     <span id="active-portal-counter" class="text-[9px] font-mono theme-text-sub bg-black/30 px-2 py-0.5 rounded border theme-border">0 tracks uploaded</span>
                 </div>
-
-                <!-- BOX 2: CENTRAL INDIVIDUAL SONG CARD SHELF (Middle) -->
                 <div class="theme-card-bg rounded-xl p-4 shadow-md border theme-border">
                     <div class="space-y-3">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b theme-border gap-2">
@@ -383,7 +282,6 @@
                                 <i class="fa-solid fa-list-ol theme-accent-color text-[10px]"></i>
                                 <span class="text-[9px] font-bold uppercase tracking-wider theme-text-sub">Songs In Playlist</span>
                             </div>
-                            <!-- Smart Search Filter: Song List inside Playlist (Feature 6) -->
                             <div class="relative w-full sm:w-48">
                                 <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center text-zinc-500">
                                     <i class="fa-solid fa-magnifying-glass text-[10px]"></i>
@@ -391,24 +289,16 @@
                                 <input type="text" id="playlist-portal-search" oninput="updatePortalQueueUI()" placeholder="Search songs..." class="w-full bg-black/40 pl-7 pr-2.5 py-1 text-[11px] text-white placeholder-gray-600 outline-none border theme-border rounded-lg focus:border-orange-500/50">
                             </div>
                         </div>
-
-                        <!-- Portal Song Container list -->
                         <div id="portal-queue-container" class="max-h-[220px] overflow-y-auto pr-1">
-                            <!-- Portal Empty State -->
                             <div id="portal-empty-state" class="py-10 text-center flex flex-col items-center justify-center">
                                 <i class="fa-solid fa-file-audio text-2xl text-zinc-700 mb-2"></i>
                                 <p class="text-[10px] theme-text-sub max-w-xs leading-relaxed">No music loaded inside this playlist yet. Add songs on the Home tab to activate playback.</p>
                             </div>
-                            <!-- Queue Row List -->
                             <div id="portal-queue-list" class="space-y-2 hidden"></div>
                         </div>
                     </div>
                 </div>
-
-                <!-- BOX 3: DEDICATED PLAYER CONTROL BOX (Bottom) -->
                 <div class="theme-card-bg rounded-xl p-5 shadow-2xl border theme-border space-y-4">
-                    
-                    <!-- Player Deck Detail & Volume Slider Header -->
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b theme-border pb-3">
                         <div class="flex items-center gap-3 overflow-hidden">
                             <div id="deck-track-cover" class="w-9 h-9 rounded-lg bg-black/45 flex items-center justify-center shrink-0 border theme-border overflow-hidden">
@@ -419,8 +309,6 @@
                                 <p id="deck-artist-title" class="text-[9px] theme-text-sub font-semibold tracking-wider uppercase">SkullyPlayer Workspace</p>
                             </div>
                         </div>
-
-                        <!-- Volume Controls - Aligned beautifully with real-time percentage text label -->
                         <div class="flex flex-col space-y-1 shrink-0 sm:max-w-[190px] w-full sm:w-auto">
                             <div class="flex items-center gap-2.5 bg-black/20 px-3 py-1.5 rounded-lg border theme-border h-10 select-none justify-between">
                                 <button onclick="toggleMute()" id="player-btn-volume" class="theme-text-sub hover:theme-accent-color transition flex items-center justify-center shrink-0 w-5 h-5">
@@ -429,11 +317,8 @@
                                 <input type="range" id="deck-volume-slider" min="0" max="100" value="80" oninput="adjustVolume(this.value)" class="w-full sm:w-20 app-progress-bar outline-none">
                                 <span id="deck-volume-percentage" class="text-[9px] font-mono theme-text-sub w-8 text-right shrink-0">80%</span>
                             </div>
-                            <span id="ios-volume-notice" class="text-[8px] text-zinc-500 text-right hidden font-medium"></span>
                         </div>
                     </div>
-
-                    <!-- Timeline Seek Bar slider row -->
                     <div class="space-y-1.5">
                         <div class="flex items-center justify-between text-[9px] theme-text-sub font-mono px-1">
                             <span id="deck-time-current">00:00</span>
@@ -443,24 +328,10 @@
                             <input type="range" id="deck-seek-slider" min="0" max="100" value="0" class="w-full app-progress-bar outline-none">
                         </div>
                     </div>
-
-                    <!-- Primary Media Action Controllers Console -->
                     <div class="flex flex-wrap items-center justify-between sm:justify-start gap-2.5 sm:gap-4 px-1 pt-1.5">
-                        <!-- Playstyle/Repeat selector button -->
-                        <button onclick="toggleRepeat()" id="player-btn-repeat" class="bg-black/35 px-3 py-1.5 border theme-border rounded text-[9px] font-black uppercase tracking-wider text-zinc-500 transition hover:text-white shrink-0">
-                            Loop: Off
-                        </button>
-
-                        <button onclick="toggleShuffle()" id="player-btn-shuffle" class="bg-black/35 px-3 py-1.5 border theme-border rounded text-[9px] font-black uppercase tracking-wider text-zinc-500 transition hover:text-white shrink-0">
-                            Shuffle: Off
-                        </button>
-                        
-                        <!-- Playstyle button (plays whole playlist vs single song) -->
-                        <button onclick="togglePlaystyle()" id="player-btn-playstyle" class="bg-black/35 px-3 py-1.5 border theme-border rounded text-[9px] font-black uppercase tracking-wider text-zinc-500 transition hover:text-white shrink-0">
-                            Playstyle: Full
-                        </button>
-
-                        <!-- Sleep Timer console -->
+                        <button onclick="toggleRepeat()" id="player-btn-repeat" class="bg-black/35 px-3 py-1.5 border theme-border rounded text-[9px] font-black uppercase tracking-wider text-zinc-500 transition hover:text-white shrink-0">Loop: Off</button>
+                        <button onclick="toggleShuffle()" id="player-btn-shuffle" class="bg-black/35 px-3 py-1.5 border theme-border rounded text-[9px] font-black uppercase tracking-wider text-zinc-500 transition hover:text-white shrink-0">Shuffle: Off</button>
+                        <button onclick="togglePlaystyle()" id="player-btn-playstyle" class="bg-black/35 px-3 py-1.5 border theme-border rounded text-[9px] font-black uppercase tracking-wider text-zinc-500 transition hover:text-white shrink-0">Playstyle: Full</button>
                         <div class="flex items-center gap-1.5 bg-black/35 px-2.5 py-1.5 border theme-border rounded text-[9px] font-black uppercase tracking-wider text-zinc-500 shrink-0 select-none">
                             <span class="text-zinc-500">Sleep:</span>
                             <select id="player-sleep-timer" onchange="setSleepTimer(this.value)" class="bg-transparent text-zinc-400 outline-none cursor-pointer font-black uppercase text-[9px] hover:text-white">
@@ -471,45 +342,27 @@
                                 <option value="60" class="bg-zinc-900 text-white">60 Min</option>
                             </select>
                         </div>
-
                         <div class="flex items-center gap-2.5 ml-auto">
-                            <!-- Prev and Next disabled styling will toggle programmatically -->
-                            <button id="player-btn-prev" onclick="playPrevTrack()" class="bg-black/35 px-3 py-1.5 border theme-border rounded text-[9px] font-black uppercase tracking-wider text-zinc-400 hover:text-white transition active:scale-95 animate-fade-in" title="Previous Track">
-                                Prev
-                            </button>
-
-                            <!-- Custom styled Main Big Play toggle circle button -->
+                            <button id="player-btn-prev" onclick="playPrevTrack()" class="bg-black/35 px-3 py-1.5 border theme-border rounded text-[9px] font-black uppercase tracking-wider text-zinc-400 hover:text-white transition active:scale-95 animate-fade-in" title="Previous Track">Prev</button>
                             <button onclick="togglePlayPause()" id="player-btn-play" class="w-9 h-9 rounded-full theme-accent-bg text-white flex items-center justify-center shadow-lg active:scale-95 hover:scale-105 transition-all text-[9px] font-black uppercase shrink-0" title="Play / Pause">
                                 <i class="fa-solid fa-play text-[10px]" id="play-pause-icon"></i>
                             </button>
-
-                            <button id="player-btn-next" onclick="playNextTrack()" class="bg-black/35 px-3 py-1.5 border theme-border rounded text-[9px] font-black uppercase tracking-wider text-zinc-400 hover:text-white transition active:scale-95 animate-fade-in" title="Next Track">
-                                Next
-                            </button>
+                            <button id="player-btn-next" onclick="playNextTrack()" class="bg-black/35 px-3 py-1.5 border theme-border rounded text-[9px] font-black uppercase tracking-wider text-zinc-400 hover:text-white transition active:scale-95 animate-fade-in" title="Next Track">Next</button>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
-        <!-- TAB 3: UNIFIED SETTINGS & DYNAMIC THEME BUILDER -->
+        <!-- TAB 3: SETTINGS -->
         <section id="tab-content-settings" class="absolute inset-0 flex flex-col p-4 sm:p-5 overflow-y-auto max-w-2xl mx-auto space-y-4 transition-all duration-200 opacity-0 pointer-events-none">
-            
-            <!-- One Unified Settings & Customization Box -->
             <div class="theme-card-bg rounded-xl p-5 space-y-6 shadow-2xl">
-                
-                <!-- Box Header -->
                 <div class="flex items-center justify-between border-b theme-border pb-3">
                     <div class="flex items-center gap-2.5">
                         <i class="fa-solid fa-sliders theme-accent-color text-sm"></i>
                         <h4 class="text-xs font-black uppercase tracking-wider theme-text-main">Customization & Console</h4>
                     </div>
                 </div>
-
-                <!-- SUB-SECTION A: Library Stats Widget -->
                 <div class="space-y-2">
                     <div class="flex items-center gap-1.5">
                         <i class="fa-solid fa-chart-simple theme-accent-color text-[10px]"></i>
@@ -526,17 +379,12 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- SUB-SECTION B: Background Settings -->
                 <div class="space-y-3.5 border-t theme-border pt-4">
                     <div class="flex items-center gap-1.5">
                         <i class="fa-solid fa-image theme-accent-color text-[10px]"></i>
                         <span class="text-[9px] font-bold uppercase tracking-wider theme-text-sub">Background Styles</span>
                     </div>
-
-                    <!-- Input Methods Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
-                        <!-- Custom Solid Background Picker -->
                         <div class="space-y-1.5">
                             <label class="text-[9px] font-bold uppercase tracking-wider theme-text-sub block">Solid Color</label>
                             <div class="flex items-center gap-2 bg-black/20 p-1.5 border theme-border rounded-lg h-10">
@@ -544,8 +392,6 @@
                                 <span class="text-[8px] font-semibold text-gray-400">Custom Solid Color</span>
                             </div>
                         </div>
-
-                        <!-- Local Image / GIF Upload Input -->
                         <div class="space-y-1.5">
                             <label class="text-[9px] font-bold uppercase tracking-wider theme-text-sub block">Upload Wallpaper</label>
                             <label class="flex items-center justify-center gap-2 bg-black/20 px-2 border theme-border rounded-lg cursor-pointer hover:border-[#ff5e3a] transition-all h-10">
@@ -555,67 +401,54 @@
                             </label>
                         </div>
                     </div>
-
-                    <!-- Layout Guidelines helper -->
                     <div class="bg-black/20 border theme-border rounded-lg p-2.5 mt-2">
                         <p class="text-[9px] theme-text-sub leading-relaxed flex items-start gap-2">
                             <i class="fa-solid fa-circle-info theme-accent-color mt-0.5 shrink-0"></i>
-                            <span>
-                                <strong>Wallpaper Guidelines:</strong> For the best visual fit, use a landscape ratio (such as 16:9 layout, e.g., <strong>1920x1080 pixels</strong>).
-                            </span>
+                            <span><strong>Wallpaper Guidelines:</strong> For the best visual fit, use a landscape ratio (such as 16:9 layout, e.g., <strong>1920x1080 pixels</strong>).</span>
                         </p>
                     </div>
                 </div>
-
-                <!-- SUB-SECTION C: Custom Palette Builder, Progress Bars Color, Transparency & Crystal blur -->
                 <div class="space-y-3.5 border-t theme-border pt-4">
                     <div class="flex items-center gap-1.5">
                         <i class="fa-solid fa-palette theme-accent-color text-[10px]"></i>
                         <span class="text-[9px] font-bold uppercase tracking-wider theme-text-sub">Theme Colors Matrix</span>
                     </div>
-
                     <div class="grid grid-cols-2 sm:grid-cols-6 gap-2.5">
-                        <!-- Accent Color Picker -->
                         <div class="space-y-1.5">
                             <label class="text-[8px] font-bold uppercase tracking-wider theme-text-sub block">Accent</label>
                             <div class="flex items-center gap-2 bg-black/20 p-1 border theme-border rounded-lg h-9">
-                                <input type="color" id="accent-color-picker" value="#ff5e3a" oninput="changeThemeValue('accent', this.value)" class="w-4 h-4 bg-transparent border-0 cursor-pointer rounded">
+                                <input type="color" id="accent-color-picker" value="#ff5e3a" oninput="changeThemeValue('accent', this.value)" class="w-4 h-4 bg-transparent border-0 cursor-pointer rounded flex-shrink-0">
                                 <span class="text-[8px] font-semibold text-gray-400">Accent</span>
                             </div>
                         </div>
-                        <!-- Progress Bars Color Picker -->
                         <div class="space-y-1.5">
                             <label class="text-[8px] font-bold uppercase tracking-wider theme-text-sub block">Progress</label>
                             <div class="flex items-center gap-2 bg-black/20 p-1 border theme-border rounded-lg h-9">
-                                <input type="color" id="slider-fill-color-picker" value="#ff5e3a" oninput="changeThemeValue('slider-fill', this.value)" class="w-4 h-4 bg-transparent border-0 cursor-pointer rounded">
+                                <input type="color" id="slider-fill-color-picker" value="#ff5e3a" oninput="changeThemeValue('slider-fill', this.value)" class="w-4 h-4 bg-transparent border-0 cursor-pointer rounded flex-shrink-0">
                                 <span class="text-[8px] font-semibold text-gray-400">Bars</span>
                             </div>
                         </div>
-                        <!-- Primary Text Color Picker -->
                         <div class="space-y-1.5">
                             <label class="text-[8px] font-bold uppercase tracking-wider theme-text-sub block">Text Main</label>
                             <div class="flex items-center gap-2 bg-black/20 p-1 border theme-border rounded-lg h-9">
-                                <input type="color" id="text-main-picker" value="#f4f4f5" oninput="changeThemeValue('text-main', this.value)" class="w-4 h-4 bg-transparent border-0 cursor-pointer rounded">
+                                <input type="color" id="text-main-picker" value="#f4f4f5" oninput="changeThemeValue('text-main', this.value)" class="w-4 h-4 bg-transparent border-0 cursor-pointer rounded flex-shrink-0">
                                 <span class="text-[8px] font-semibold text-gray-400">Main</span>
                             </div>
                         </div>
-                        <!-- Sub Text Color Picker -->
                         <div class="space-y-1.5">
                             <label class="text-[8px] font-bold uppercase tracking-wider theme-text-sub block">Text Muted</label>
                             <div class="flex items-center gap-2 bg-black/20 p-1 border theme-border rounded-lg h-9">
-                                <input type="color" id="text-sub-picker" value="#a1a1aa" oninput="changeThemeValue('text-sub', this.value)" class="w-4 h-4 bg-transparent border-0 cursor-pointer rounded">
+                                <input type="color" id="text-sub-picker" value="#a1a1aa" oninput="changeThemeValue('text-sub', this.value)" class="w-4 h-4 bg-transparent border-0 cursor-pointer rounded flex-shrink-0">
                                 <span class="text-[8px] font-semibold text-gray-400">Muted</span>
                             </div>
                         </div>
-                        <!-- Card Background Panel Picker -->
                         <div class="space-y-1.5">
                             <label class="text-[8px] font-bold uppercase tracking-wider theme-text-sub block">Panels</label>
                             <div class="flex items-center gap-2 bg-black/20 p-1 border theme-border rounded-lg h-9">
-                                <input type="color" id="card-bg-picker" value="#121217" oninput="changeThemeValue('card-bg', this.value)" class="w-4 h-4 bg-transparent border-0 cursor-pointer rounded">
+                                <input type="color" id="card-bg-picker" value="#121217" oninput="changeThemeValue('card-bg', this.value)" class="w-4 h-4 bg-transparent border-0 cursor-pointer rounded flex-shrink-0">
                                 <span class="text-[8px] font-semibold text-gray-400">Panels</span>
                             </div>
                         </div>
-                        <!-- Box Transparency Slider -->
                         <div class="space-y-1.5 col-span-2 sm:col-span-1">
                             <label class="text-[8px] font-bold uppercase tracking-wider theme-text-sub block">Opacity</label>
                             <div class="flex items-center gap-1.5 bg-black/20 p-1 border theme-border rounded-lg h-9">
@@ -624,8 +457,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Panel Blur Customizer (Allows actual crystal transparency when set to 0px) -->
                     <div class="grid grid-cols-1 max-w-sm">
                         <div class="space-y-1.5">
                             <label class="text-[8px] font-bold uppercase tracking-wider theme-text-sub block">Panel Blur Intensity (Crystal transparency if 0px)</label>
@@ -636,16 +467,12 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- SUB-SECTION D: System Performance & Utility Options -->
                 <div class="space-y-3.5 border-t theme-border pt-4">
                     <div class="flex items-center gap-1.5">
                         <i class="fa-solid fa-gauge-high theme-accent-color text-[10px]"></i>
                         <span class="text-[9px] font-bold uppercase tracking-wider theme-text-sub">System Utilities & Performance</span>
                     </div>
-
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <!-- Crossfade settings controller (Feature 5) -->
                         <div class="flex items-center justify-between bg-black/20 p-2.5 border theme-border rounded-lg h-10 select-none">
                             <div class="flex flex-col">
                                 <span class="text-[9px] font-bold theme-text-main">Crossfade transition</span>
@@ -653,8 +480,6 @@
                             </div>
                             <input type="range" id="crossfade-slider" min="0" max="10" value="0" oninput="changeCrossfade(this.value)" class="w-20 h-1 bg-black/40 rounded-lg cursor-pointer accent-[#ff5e3a]">
                         </div>
-
-                        <!-- Toggle Hardware Acceleration -->
                         <div class="flex items-center justify-between bg-black/20 p-2.5 border theme-border rounded-lg h-10 select-none">
                             <div class="flex flex-col">
                                 <span class="text-[9px] font-bold theme-text-main">Hardware Acceleration</span>
@@ -665,8 +490,6 @@
                                 <div class="w-7 h-4 bg-gray-800 rounded-full peer peer-checked:after:translate-x-3 after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-orange-500"></div>
                             </label>
                         </div>
-
-                        <!-- Battery Saver Mode -->
                         <div class="flex items-center justify-between bg-black/20 p-2.5 border theme-border rounded-lg h-10 select-none">
                             <div class="flex flex-col">
                                 <span class="text-[9px] font-bold theme-text-main">Battery Saver</span>
@@ -678,8 +501,6 @@
                             </label>
                         </div>
                     </div>
-
-                    <!-- Reset App Session Cache -->
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 bg-red-950/10 border border-red-900/20 p-4 rounded-xl">
                         <div class="flex flex-col text-left">
                             <span class="text-[10px] font-bold text-red-400">Clear Application Session</span>
@@ -690,21 +511,17 @@
                         </button>
                     </div>
                 </div>
-
-                <!-- Footer Console Controls -->
                 <div class="pt-4 border-t theme-border flex justify-end">
                     <button onclick="resetThemeToDefault()" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white text-[10px] font-bold rounded-lg transition-all active:scale-95 flex items-center justify-center gap-1.5 shadow-md">
                         <i class="fa-solid fa-rotate-left text-[9px]"></i> Reset to Default
                     </button>
                 </div>
-
             </div>
-
         </section>
 
     </main>
 
-    <!-- EDIT TRACK INFO MODAL (Form Inputs strictly set to text-[16px] to prevent Safari iOS auto-zoom) -->
+    <!-- EDIT TRACK INFO MODAL -->
     <div id="edit-song-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
         <div class="theme-card-bg p-5 rounded-2xl max-w-sm w-full mx-4 space-y-4 border theme-border shadow-2xl">
             <div class="flex items-center justify-between border-b theme-border pb-2.5">
@@ -728,56 +545,51 @@
         </div>
     </div>
 
-    <!-- Elevated Bottom Navigation Bar for easy mobile clicks (Moved significantly higher up the screen for mobile accessibility) -->
     <nav class="pb-[calc(env(safe-area-inset-bottom,12px)+28px)] pt-3 border-t flex items-center justify-around shrink-0 relative z-30 theme-nav-bg h-24 shadow-[0_-5px_15px_rgba(0,0,0,0.5)]">
-        <!-- Home Button -->
         <button onclick="switchTab('home')" id="nav-btn-home" class="flex flex-col items-center justify-center w-20 h-10 theme-accent-color transition-all active:scale-90">
             <i class="fa-solid fa-house text-sm"></i>
             <span class="text-[8px] mt-1 font-bold tracking-wider uppercase">Home</span>
         </button>
-        <!-- Playlist Button -->
         <button onclick="switchTab('playlist')" id="nav-btn-playlist" class="flex flex-col items-center justify-center w-20 h-10 theme-text-sub hover:text-white transition-all active:scale-90">
             <i class="fa-solid fa-music text-sm"></i>
             <span class="text-[8px] mt-1 font-bold tracking-wider uppercase">Playlist</span>
         </button>
-        <!-- Settings Button -->
         <button onclick="switchTab('settings')" id="nav-btn-settings" class="flex flex-col items-center justify-center w-20 h-10 theme-text-sub hover:text-white transition-all active:scale-90">
             <i class="fa-solid fa-sliders text-sm"></i>
             <span class="text-[8px] mt-1 font-bold tracking-wider uppercase">Settings</span>
         </button>
     </nav>
 
-    <!-- Script Block for UI Tab Routing, Database, and Upload Engine -->
+    <!-- Script Block for UI Tab Routing, Database, and Audio Engine -->
     <script>
-        // Global State (Persistent + In-Memory references)
+        // --- HOISTED CORE INITIALIZATION STATE VARIABLES ---
+        
+        const dbName = "SkullyPlayerDB";
+        const dbVersion = 2;
+        let db = null;
         let tracksDatabase = [];
         let playlistsDatabase = [];
-        let foldersDatabase = []; // Folder storage structure (Feature 3)
+        let foldersDatabase = [];
         let activePlaylistId = null; 
         let currentlyPlayingTrackId = null; 
         let currentlyPlayingPlaylistId = null; 
         let tempPlaylistCoverBase64 = null; 
-        let activeFolderFilter = null; // Folder selection filter
+        let activeFolderFilter = null;
         
-        // Seeker drag tracking parameters
         let isUserDraggingSeek = false;
         let wasPlayingBeforeDrag = false;
 
-        // Modal Edit reference slots
         let editingTrackId = null;
         let editingPlaylistId = null;
 
-        // Sleep Timer state parameters
         let sleepTimerTimeout = null;
         let sleepTimerEndTime = null;
 
-        // Active Media Player Properties
         const audioPlayer = new Audio();
         let currentTrackIndex = -1;
         let isShuffle = false;
         let isRepeat = false;
 
-        // Web Audio API state parameters for volume bypass (Safari/iOS volume limit override)
         let audioCtx = null;
         let gainNode = null;
         let sourceNode = null;
@@ -791,373 +603,108 @@
             cardOpacity: 80,
             cardBlurVal: 12,
             playstyleMode: "full",
-            crossfadeVal: 0, // Crossfade length in seconds (Feature 5)
+            crossfadeVal: 0,
             uploadedBgData: null,
             hwAccel: true,
             batterySaver: false
         };
 
-        // IndexedDB Configuration
-        const dbName = "SkullyPlayerDB";
-        const dbVersion = 1;
-        let db = null;
+        let hasPendingChanges = false;
+        function queueSessionSave() { hasPendingChanges = true; }
 
-        // --- GLOBAL CORE STORAGE UTILITIES AND PERSISTENCE ENGINES DEFINED AT DEDICATED TOP OF SCOPE ---
+        // Web Audio Context initializer (Correctly defined and hoisted first!)
+        function setupWebAudioContext() {
+            if (audioCtx) return;
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                gainNode = audioCtx.createGain();
+                sourceNode = audioCtx.createMediaElementSource(audioPlayer);
+                sourceNode.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                const vol = document.getElementById('deck-volume-slider')?.value || 80;
+                gainNode.gain.setValueAtTime(vol / 100, audioCtx.currentTime);
+            } catch(e) { console.log("Web Audio API not available:", e); }
+        }
+
+        // --- GLOBAL HOISTED INTERFACE AND PORTAL CONTROLLERS ---
+
+        function enterPlaylistPortal(playlistId) {
+            activePlaylistId = playlistId;
+            const playlist = playlistsDatabase.find(pl => pl.id === playlistId);
+            if (!playlist) return;
+            
+            const shelf = document.getElementById('playlist-view-shelf');
+            const portal = document.getElementById('playlist-view-portal');
+            const counter = document.getElementById('active-portal-counter');
+            const title = document.getElementById('active-portal-title');
+            
+            if (shelf) shelf.classList.add('hidden');
+            if (portal) portal.classList.remove('hidden');
+            if (title) title.textContent = playlist.name;
+            if (counter) counter.textContent = `${playlist.tracks.length} tracks uploaded`;
+            
+            const portalCover = document.getElementById('portal-header-cover');
+            if (portalCover) {
+                if (playlist.coverData) { 
+                    portalCover.innerHTML = `<img src="${playlist.coverData}" class="w-full h-full object-cover">`; 
+                } else { 
+                    portalCover.innerHTML = `<i class="fa-solid fa-compact-disc theme-accent-color text-[11px]"></i>`; 
+                }
+            }
+            updatePortalQueueUI();
+            updateNavigationButtonsState(playlist);
+        }
+        
+        function exitPlaylistPortal() {
+            activePlaylistId = null;
+            const shelf = document.getElementById('playlist-view-shelf');
+            const portal = document.getElementById('playlist-view-portal');
+            
+            if (shelf) shelf.classList.remove('hidden');
+            if (portal) portal.classList.add('hidden');
+            updatePlaylistsUI();
+        }
 
         function initIndexedDB(callback) {
             const request = indexedDB.open(dbName, dbVersion);
-
             request.onerror = function(event) {
-                console.error("IndexedDB failure, falling back to basic localStorage:", event);
+                console.error("IndexedDB failure:", event);
                 loadLocalStorageFallback();
                 if (callback) callback();
             };
-
             request.onsuccess = function(event) {
                 db = event.target.result;
-                loadSessionData(callback);
+                loadSessionData(() => {
+                    // Enforce the default un-deletable Liked Songs playlist
+                    let likedSongsPlaylist = playlistsDatabase.find(pl => pl.isDefault || pl.id === "liked-songs-default-id");
+                    if (!likedSongsPlaylist) {
+                        playlistsDatabase.unshift({
+                            id: "liked-songs-default-id",
+                            name: "Liked Songs",
+                            folder: null,
+                            coverData: null,
+                            isDefault: true,
+                            tracks: []
+                        });
+                        saveSessionData();
+                    }
+                    if (callback) callback();
+                });
             };
-
             request.onupgradeneeded = function(event) {
                 const activeDb = event.target.result;
-                if (!activeDb.objectStoreNames.contains("stateStore")) {
-                    activeDb.createObjectStore("stateStore");
-                }
+                if (!activeDb.objectStoreNames.contains("stateStore")) activeDb.createObjectStore("stateStore");
+                if (!activeDb.objectStoreNames.contains("fileStore")) activeDb.createObjectStore("fileStore");
             };
         }
 
-        function saveSessionData() {
-            if (!db) {
-                saveLocalStorageFallback();
-                return;
-            }
-
-            try {
-                const transaction = db.transaction(["stateStore"], "readwrite");
-                const store = transaction.objectStore("stateStore");
-
-                store.put(tracksDatabase, "skully_tracks");
-                store.put(playlistsDatabase, "skully_playlists");
-                store.put(foldersDatabase, "skully_folders");
-                store.put(appSettings, "skully_settings");
-            } catch (e) {
-                console.error("IndexedDB save transaction error:", e);
-                saveLocalStorageFallback();
-            }
-        }
-
-        function loadSessionData(callback) {
-            if (!db) {
-                loadLocalStorageFallback();
-                if (callback) callback();
-                return;
-            }
-
-            try {
-                const transaction = db.transaction(["stateStore"], "readonly");
-                const store = transaction.objectStore("stateStore");
-
-                const tracksReq = store.get("skully_tracks");
-                const playlistsReq = store.get("skully_playlists");
-                const foldersReq = store.get("skully_folders");
-                const settingsReq = store.get("skully_settings");
-
-                let completedRequests = 0;
-                const checkCompletion = () => {
-                    completedRequests++;
-                    if (completedRequests === 4 && callback) {
-                        callback();
-                    }
-                };
-
-                tracksReq.onsuccess = function() {
-                    if (tracksReq.result) tracksDatabase = tracksReq.result;
-                    checkCompletion();
-                };
-                tracksReq.onerror = checkCompletion;
-
-                playlistsReq.onsuccess = function() {
-                    if (playlistsReq.result) {
-                        playlistsDatabase = playlistsReq.result;
-                    }
-                    checkCompletion();
-                };
-                playlistsReq.onerror = checkCompletion;
-
-                foldersReq.onsuccess = function() {
-                    if (foldersReq.result) {
-                        foldersDatabase = foldersReq.result;
-                    }
-                    checkCompletion();
-                };
-                foldersReq.onerror = checkCompletion;
-
-                settingsReq.onsuccess = function() {
-                    if (settingsReq.result) {
-                        appSettings = settingsReq.result;
-                        if (!appSettings.playstyleMode) appSettings.playstyleMode = "full";
-                        if (appSettings.crossfadeVal === undefined) appSettings.crossfadeVal = 0;
-                    }
-                    checkCompletion();
-                };
-                settingsReq.onerror = checkCompletion;
-
-            } catch (e) {
-                console.error("IndexedDB load transaction error:", e);
-                loadLocalStorageFallback();
-                if (callback) callback();
-            }
-        }
-
-        function saveLocalStorageFallback() {
-            try {
-                localStorage.setItem('skully_tracks', JSON.stringify(tracksDatabase));
-                const strippedPlaylists = playlistsDatabase.map(pl => ({
-                    id: pl.id,
-                    name: pl.name,
-                    folder: pl.folder || null,
-                    tracks: pl.tracks.map(t => ({ id: t.id, name: t.name, artist: t.artist || "Unknown Artist", size: t.size })) 
-                }));
-                localStorage.setItem('skully_playlists', JSON.stringify(strippedPlaylists));
-                localStorage.setItem('skully_folders', JSON.stringify(foldersDatabase));
-                localStorage.setItem('skully_settings', JSON.stringify(appSettings));
-            } catch (e) {
-                console.warn("Storage fallback full:", e);
-            }
-        }
-
-        function loadLocalStorageFallback() {
-            try {
-                const storedTracks = localStorage.getItem('skully_tracks');
-                const storedPlaylists = localStorage.getItem('skully_playlists');
-                const storedFolders = localStorage.getItem('skully_folders');
-                const storedSettings = localStorage.getItem('skully_settings');
-
-                if (storedTracks) tracksDatabase = JSON.parse(storedTracks);
-                if (storedPlaylists) {
-                    playlistsDatabase = JSON.parse(storedPlaylists).map(pl => ({
-                        id: pl.id,
-                        name: pl.name,
-                        folder: pl.folder || null,
-                        coverData: null,
-                        tracks: pl.tracks.map(t => ({ id: t.id, name: t.name, artist: t.artist || "Unknown Artist", size: t.size, fileObject: null }))
-                    }));
-                }
-                if (storedFolders) foldersDatabase = JSON.parse(storedFolders);
-                if (storedSettings) appSettings = JSON.parse(storedSettings);
-            } catch (e) {
-                console.error("Storage fallback failed:", e);
-            }
-        }
-
-        // Helper to trigger the hidden file input
-        function triggerFileInput() {
-            const input = document.getElementById('file-input');
-            if (input) input.click();
-        }
-
-        // Live track seeker styling
-        function updateSliderProgressBackground(slider, percent) {
-            const color = getComputedStyle(document.documentElement).getPropertyValue('--slider-fill-color').trim() || '#ff5e3a';
-            slider.style.background = `linear-gradient(to right, ${color} 0%, ${color} ${percent}%, rgba(255, 255, 255, 0.12) ${percent}%, rgba(255, 255, 255, 0.12) 100%)`;
-        }
-
-        // Format duration seconds to readable text
-        function formatTime(secs) {
-            if (isNaN(secs) || secs === Infinity || secs < 0) return "0:00";
-            const minutes = Math.floor(secs / 60) || 0;
-            const seconds = Math.floor(secs % 60) || 0;
-            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-        }
-
-        // Audio Player seeks, stops, next, previous rules
-        function seekAudio(value) {
-            if (isNaN(audioPlayer.duration)) return;
-            audioPlayer.currentTime = (value / 100) * audioPlayer.duration;
-        }
-
-        // Update active player details panel text & icon
-        function updateDeckInfo(title, artist, isPlaying, coverBase64 = null) {
-            const songLabel = document.getElementById('deck-song-title');
-            const artistLabel = document.getElementById('deck-artist-title');
-            const icon = document.getElementById('play-pause-icon');
-            const coverWrapper = document.getElementById('deck-track-cover');
-
-            if (songLabel) songLabel.textContent = title;
-            if (artistLabel) artistLabel.textContent = artist;
-
-            if (coverWrapper) {
-                if (coverBase64) {
-                    coverWrapper.innerHTML = `<img src="${coverBase64}" class="w-full h-full object-cover">`;
-                } else {
-                    coverWrapper.innerHTML = `<i class="fa-solid fa-music theme-accent-color text-[11px]"></i>`;
-                }
-            }
-
-            if (icon) {
-                if (isPlaying) {
-                    icon.className = "fa-solid fa-pause text-[10px]";
-                } else {
-                    icon.className = "fa-solid fa-play text-[10px] ml-0.5";
-                }
-            }
-        }
-
-        // Update local session stats
-        function updateSettingsStats() {
-            const count = tracksDatabase.length;
-            const size = tracksDatabase.reduce((acc, curr) => acc + parseFloat(curr.size || 0), 0).toFixed(2);
-            
-            const countEl = document.getElementById('settings-stat-count');
-            const sizeEl = document.getElementById('settings-stat-size');
-            
-            if (countEl) countEl.textContent = count;
-            if (sizeEl) sizeEl.textContent = `${size} MB`;
-        }
-
-        // Playlist Cover Picture Selection Handler (Fully declared in active global scope!)
-        function handlePlaylistCoverSelection(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                tempPlaylistCoverBase64 = e.target.result;
-                document.getElementById('playlist-cover-preview').src = tempPlaylistCoverBase64;
-                document.getElementById('playlist-cover-preview-wrapper').classList.remove('hidden');
-                document.getElementById('playlist-cover-btn-text').textContent = "Change Cover";
-            }
-            reader.readAsDataURL(file);
-        }
-
-        // 1. Dynamic Theme Engine Methods
-        function changeThemeValue(variable, value) {
-            const root = document.documentElement;
-            if (variable === 'accent') {
-                root.style.setProperty('--musi-orange', value);
-                const picker = document.getElementById('accent-color-picker');
-                if (picker) picker.value = value;
-                appSettings.accentColor = value;
-                
-                const activeNav = document.querySelector('nav .theme-accent-color');
-                if (activeNav) activeNav.style.color = value;
-            } else if (variable === 'slider-fill') {
-                root.style.setProperty('--slider-fill-color', value);
-                const picker = document.getElementById('slider-fill-color-picker');
-                if (picker) picker.value = value;
-                appSettings.sliderFillColor = value;
-                
-                // Repaint progress bars immediately
-                const seekSlider = document.getElementById('deck-seek-slider');
-                if (seekSlider) updateSliderProgressBackground(seekSlider, seekSlider.value);
-                const volSlider = document.getElementById('deck-volume-slider');
-                if (volSlider) updateSliderProgressBackground(volSlider, volSlider.value);
-            } else if (variable === 'text-main') {
-                root.style.setProperty('--text-main', value);
-                const picker = document.getElementById('text-main-picker');
-                if (picker) picker.value = value;
-                appSettings.textColorMain = value;
-            } else if (variable === 'text-sub') {
-                root.style.setProperty('--text-sub', value);
-                const picker = document.getElementById('text-sub-picker');
-                if (picker) picker.value = value;
-                appSettings.textColorSub = value;
-            } else if (variable === 'card-bg') {
-                const hex = value.replace('#', '');
-                const r = parseInt(hex.substring(0, 2), 16);
-                const g = parseInt(hex.substring(2, 4), 16);
-                const b = parseInt(hex.substring(4, 6), 16);
-                root.style.setProperty('--card-rgb', `${r}, ${g}, ${b}`);
-                const picker = document.getElementById('card-bg-picker');
-                if (picker) picker.value = value;
-                appSettings.cardBgHex = value;
-            }
-            saveSessionData();
-        }
-
-        function changeBoxTransparency(value) {
-            const opacity = (value / 100).toFixed(2);
-            document.documentElement.style.setProperty('--card-opacity', opacity);
-            const valLabel = document.getElementById('transparency-val');
-            if (valLabel) valLabel.textContent = value + '%';
-            appSettings.cardOpacity = parseInt(value);
-            saveSessionData();
-        }
-
-        function changeBoxBlur(value) {
-            document.documentElement.style.setProperty('--card-blur', value + 'px');
-            const blurLabel = document.getElementById('blur-val');
-            if (blurLabel) blurLabel.textContent = value + 'px';
-            appSettings.cardBlurVal = parseInt(value);
-            saveSessionData();
-        }
-
-        function changeCrossfade(value) {
-            const label = document.getElementById('settings-crossfade-val');
-            if (label) {
-                label.textContent = value == 0 ? "Disabled (0s)" : `${value} Seconds`;
-            }
-            appSettings.crossfadeVal = parseInt(value);
-            saveSessionData();
-        }
-
-        function applyActiveSettingsToUI() {
-            changeThemeValue('accent', appSettings.accentColor);
-            changeThemeValue('slider-fill', appSettings.sliderFillColor || '#ff5e3a');
-            changeThemeValue('text-main', appSettings.textColorMain);
-            changeThemeValue('text-sub', appSettings.textColorSub);
-            changeThemeValue('card-bg', appSettings.cardBgHex);
-            
-            changeBoxTransparency(appSettings.cardOpacity);
-            const slider = document.getElementById('box-transparency-slider');
-            if (slider) slider.value = appSettings.cardOpacity;
-
-            changeBoxBlur(appSettings.cardBlurVal || 12);
-            const blurSlider = document.getElementById('box-blur-slider');
-            if (blurSlider) blurSlider.value = appSettings.cardBlurVal || 12;
-
-            changeCrossfade(appSettings.crossfadeVal || 0);
-            const cfSlider = document.getElementById('crossfade-slider');
-            if (cfSlider) cfSlider.value = appSettings.crossfadeVal || 0;
-
-            // Apply playstyle settings
-            const playstyleBtn = document.getElementById('player-btn-playstyle');
-            if (playstyleBtn) {
-                const isFull = (appSettings.playstyleMode || "full") === "full";
-                playstyleBtn.textContent = isFull ? "Playstyle: Full" : "Playstyle: Single";
-                playstyleBtn.style.color = isFull ? "var(--musi-orange)" : "";
-                playstyleBtn.style.borderColor = isFull ? "var(--musi-orange)" : "";
-            }
-
-            const bgImg = document.getElementById('app-bg-image');
-            if (bgImg) {
-                if (appSettings.uploadedBgData) {
-                    bgImg.src = appSettings.uploadedBgData;
-                    bgImg.style.opacity = '1';
-                } else {
-                    bgImg.style.opacity = '0';
-                    bgImg.removeAttribute('src');
-                    document.documentElement.style.setProperty('--body-bg', appSettings.bodyBgStyle);
-                }
-            }
-
-            const accelToggle = document.getElementById('hw-accel-toggle');
-            if (accelToggle) accelToggle.checked = appSettings.hwAccel;
-            toggleHardwareAcceleration(appSettings.hwAccel);
-
-            const batteryToggle = document.getElementById('battery-saver-toggle');
-            if (batteryToggle) batteryToggle.checked = appSettings.batterySaver;
-            toggleBatterySaver(appSettings.batterySaver);
-        }
-
-        // Binary ID3 Parser to extract attached artwork (Feature 7)
+        // Binary ID3 Parser to extract attached artwork (Feature 7) (Fully Hoisted)
         function extractID3Cover(file) {
             return new Promise((resolve) => {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     try {
                         const arr = new Uint8Array(e.target.result);
-                        // Check for standard ID3 header prefix
                         if (arr[0] === 0x49 && arr[1] === 0x44 && arr[2] === 0x33) { 
                             let offset = 10;
                             const size = ((arr[6] & 0x7F) << 21) | ((arr[7] & 0x7F) << 14) | ((arr[8] & 0x7F) << 7) | (arr[9] & 0x7F);
@@ -1174,10 +721,10 @@
                                         mime += String.fromCharCode(arr[apicOffset]);
                                         apicOffset++;
                                     }
-                                    apicOffset++; // skip null
+                                    apicOffset++; 
                                     const picType = arr[apicOffset];
                                     apicOffset++;
-                                    if (encoding === 1 || encoding === 2) { // Skip text description
+                                    if (encoding === 1 || encoding === 2) { 
                                         while (arr[apicOffset] !== 0 || arr[apicOffset+1] !== 0) {
                                             apicOffset += 2;
                                         }
@@ -1206,205 +753,11 @@
                     }
                     resolve(null);
                 };
-                reader.readAsArrayBuffer(file.slice(0, 500 * 1024)); // Read first 500KB
+                reader.readAsArrayBuffer(file.slice(0, 500 * 1024)); 
             });
         }
 
-        // Folder management system (Feature 3)
-        function createNewFolder() {
-            const input = document.getElementById('folder-name-input');
-            const folderName = input.value.trim();
-            if (!folderName) return;
-
-            const isDuplicate = foldersDatabase.some(f => f.toLowerCase() === folderName.toLowerCase());
-            if (isDuplicate) return;
-
-            foldersDatabase.push(folderName);
-            input.value = '';
-            updateFoldersUI();
-            saveSessionData();
-        }
-
-        function updateFoldersUI() {
-            const select = document.getElementById('playlist-folder-select');
-            const container = document.getElementById('folders-container');
-            if (!select || !container) return;
-
-            // Update creation select dropdown
-            let optionsHtml = `<option value="" class="bg-zinc-950 text-white">None (Root Directory)</option>`;
-            foldersDatabase.forEach(f => {
-                optionsHtml += `<option value="${f}" class="bg-zinc-950 text-white">${f}</option>`;
-            });
-            select.innerHTML = optionsHtml;
-
-            // Update folders visualization shelf
-            container.innerHTML = `
-                <button onclick="filterPlaylistsByFolder(null)" class="px-3.5 py-1.5 rounded-full border text-[10px] font-black uppercase tracking-wider transition ${activeFolderFilter === null ? 'theme-accent-bg border-transparent text-white' : 'bg-black/30 border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500'}">All</button>
-            `;
-            foldersDatabase.forEach(f => {
-                const isSelected = activeFolderFilter === f;
-                container.innerHTML += `
-                    <div class="relative group shrink-0">
-                        <button onclick="filterPlaylistsByFolder('${f}')" class="px-3.5 py-1.5 rounded-full border text-[10px] font-black uppercase tracking-wider transition ${isSelected ? 'theme-accent-bg border-transparent text-white' : 'bg-black/30 border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500'}">${f}</button>
-                        <button onclick="deleteFolder('${f}')" class="absolute -top-1 -right-1 bg-red-600 text-white w-3 h-3 rounded-full flex items-center justify-center text-[7px] opacity-0 group-hover:opacity-100 transition shadow">&times;</button>
-                    </div>
-                `;
-            });
-        }
-
-        function filterPlaylistsByFolder(folderName) {
-            activeFolderFilter = folderName;
-            const heading = document.getElementById('shelf-heading-title');
-            const backBtn = document.getElementById('folder-back-btn');
-            if (heading) {
-                heading.textContent = folderName ? `Folder: ${folderName}` : "My Playlists";
-            }
-            if (backBtn) {
-                if (folderName) backBtn.classList.remove('hidden');
-                else backBtn.classList.add('hidden');
-            }
-            updateFoldersUI();
-            updatePlaylistsUI();
-        }
-
-        function clearActiveFolderFilter() {
-            filterPlaylistsByFolder(null);
-        }
-
-        function deleteFolder(folderName) {
-            foldersDatabase = foldersDatabase.filter(f => f !== folderName);
-            playlistsDatabase.forEach(pl => {
-                if (pl.folder === folderName) pl.folder = null; // Orphan playlist to root directory
-            });
-            if (activeFolderFilter === folderName) activeFolderFilter = null;
-            updateFoldersUI();
-            updatePlaylistsUI();
-            saveSessionData();
-        }
-
-        // Sleep Timer Console Manager (Feature 1)
-        function setSleepTimer(minutes) {
-            if (sleepTimerTimeout) {
-                clearTimeout(sleepTimerTimeout);
-                sleepTimerTimeout = null;
-                sleepTimerEndTime = null;
-            }
-
-            if (minutes === "off") {
-                updateSleepTimerDisplay("off");
-                return;
-            }
-
-            const ms = parseInt(minutes) * 60 * 1000;
-            sleepTimerEndTime = Date.now() + ms;
-            
-            sleepTimerTimeout = setTimeout(() => {
-                audioPlayer.pause();
-                const titleLabel = document.getElementById('deck-song-title');
-                updateDeckInfo(audioPlayer.src && titleLabel ? titleLabel.textContent : "No Track Active", "Sleep Timer Ended", false);
-                updatePortalQueueUI();
-                
-                const select = document.getElementById('player-sleep-timer');
-                if (select) select.value = "off";
-                setSleepTimer("off");
-            }, ms);
-
-            updateSleepTimerDisplay(minutes);
-        }
-
-        function updateSleepTimerDisplay(status) {
-            const select = document.getElementById('player-sleep-timer');
-            if (!select) return;
-            if (status === "off") {
-                select.style.color = "";
-            } else {
-                select.style.color = "var(--musi-orange)";
-            }
-        }
-
-        // Tab Navigation
-        function switchTab(targetTab) {
-            const tabs = ['home', 'playlist', 'settings'];
-            tabs.forEach(tab => {
-                const section = document.getElementById(`tab-content-${tab}`);
-                const navBtn = document.getElementById(`nav-btn-${tab}`);
-                if (tab === targetTab) {
-                    if (section) {
-                        section.classList.remove('opacity-0', 'pointer-events-none');
-                        section.classList.add('opacity-100');
-                    }
-                    if (navBtn) navBtn.style.color = "var(--musi-orange)";
-                } else {
-                    if (section) {
-                        section.classList.add('opacity-0', 'pointer-events-none');
-                        section.classList.remove('opacity-100');
-                    }
-                    if (navBtn) navBtn.style.color = "var(--text-sub)";
-                }
-            });
-        }
-
-        // Upload queue UI
-        function updateTracksUI() {
-            const listContainer = document.getElementById('uploaded-tracks-list');
-            const emptyState = document.getElementById('empty-queue-state');
-            const bulkBar = document.getElementById('bulk-actions-bar');
-
-            if (!listContainer) return;
-
-            const searchQuery = (document.getElementById('home-queue-search')?.value || "").toLowerCase().trim();
-            const filteredTracks = tracksDatabase.filter(track => 
-                track.name.toLowerCase().includes(searchQuery)
-            );
-
-            if (tracksDatabase.length === 0) {
-                if (emptyState) emptyState.classList.remove('hidden');
-                if (bulkBar) bulkBar.classList.add('hidden');
-                listContainer.classList.add('hidden');
-                return;
-            }
-
-            if (emptyState) emptyState.classList.add('hidden');
-            if (bulkBar) {
-                bulkBar.classList.remove('hidden');
-                populateBulkSelectOptions();
-            }
-            listContainer.classList.remove('hidden');
-
-            listContainer.innerHTML = '';
-
-            filteredTracks.forEach((track) => {
-                let selectOptions = `<option value="" disabled selected class="bg-zinc-950 text-gray-500 text-[10px]">Add to...</option>`;
-                playlistsDatabase.forEach(pl => {
-                    selectOptions += `<option value="${pl.id}" class="bg-zinc-900 text-white text-[11px]">${pl.name}</option>`;
-                });
-
-                const row = document.createElement('div');
-                row.className = "flex items-center justify-between p-3 bg-black/40 border theme-border rounded-lg select-none";
-                row.innerHTML = `
-                    <div class="flex items-center gap-2.5 overflow-hidden flex-1 min-w-0 pr-2">
-                        <div class="w-8 h-8 rounded-lg bg-black/60 border theme-border flex items-center justify-center shrink-0 overflow-hidden">
-                            ${track.coverData ? `<img src="${track.coverData}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-music text-[9px] theme-accent-color"></i>`}
-                        </div>
-                        <div class="overflow-hidden text-left flex-1">
-                            <h4 class="text-xs font-bold theme-text-main truncate">${track.name}</h4>
-                            <p class="text-[9px] theme-text-sub mt-0.5">${track.size}</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-2 shrink-0">
-                        <select onchange="addTrackToPlaylist('${track.id}', this)" class="bg-black/40 border theme-border rounded-md px-1.5 py-1 text-[10px] font-bold theme-accent-color outline-none cursor-pointer max-w-[90px] hover:border-orange-500/50">
-                            ${selectOptions}
-                        </select>
-                        <button onclick="removeTrack('${track.id}', event)" class="theme-text-sub hover:text-red-400 p-1.5 transition" title="Delete Track">
-                            <i class="fa-solid fa-trash-can text-xs"></i>
-                        </button>
-                    </div>
-                `;
-                listContainer.appendChild(row);
-            });
-        }
-
-        // Custom Wallpaper Handlers
+        // Custom Wallpaper Handlers (Hoisted properly!)
         function uploadBackgroundImage(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -1436,7 +789,7 @@
             if (picker) picker.value = color;
 
             appSettings.bodyBgStyle = color;
-            appSettings.uploadedBgData = null; // Clear local wallpaper link
+            appSettings.uploadedBgData = null; 
             saveSessionData();
         }
 
@@ -1462,744 +815,263 @@
 
             root.style.setProperty('--body-bg', targetPreset);
             appSettings.bodyBgStyle = targetPreset;
-            appSettings.uploadedBgData = null; // Wipe out active Base64
+            appSettings.uploadedBgData = null; 
             saveSessionData();
         }
 
-        // File upload selections (Defined globally)
-        function handleFileSelection(e) {
-            if (e.target.files) {
-                processFiles(e.target.files);
-            }
+        function saveFileToIndexedDB(trackId, blob) {
+            return new Promise((resolve) => {
+                if (!db) { resolve(); return; }
+                try {
+                    const transaction = db.transaction(["fileStore"], "readwrite");
+                    const store = transaction.objectStore("fileStore");
+                    const req = store.put(blob, trackId);
+                    req.onsuccess = () => resolve();
+                    req.onerror = () => resolve();
+                } catch (e) { console.error("Failed to save audio Blob:", e); resolve(); }
+            });
         }
 
-        async function processFiles(files) {
-            const allowedTypes = ['audio/mp3', 'audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/x-m4a', 'audio/m4a'];
-            let tracksAdded = 0;
+        function getFileFromIndexedDB(trackId) {
+            return new Promise((resolve) => {
+                if (!db) { resolve(null); return; }
+                try {
+                    const transaction = db.transaction(["fileStore"], "readonly");
+                    const store = transaction.objectStore("fileStore");
+                    const req = store.get(trackId);
+                    req.onsuccess = () => resolve(req.result);
+                    req.onerror = () => resolve(null);
+                } catch (e) { console.error("Failed to fetch audio Blob:", e); resolve(null); }
+            });
+        }
 
-            for (const file of Array.from(files)) {
-                const isAudio = allowedTypes.includes(file.type) || file.name.endsWith('.mp3');
-                if (isAudio) {
-                    const isDuplicate = tracksDatabase.some(t => t.name === file.name);
-                    if (!isDuplicate) {
-                        const trackName = file.name.replace(/\.[^/.]+$/, "");
-                        
-                        // Extract cover art before pushing to database
-                        const coverUrl = await extractID3Cover(file);
+        function removeFileFromIndexedDB(trackId) {
+            return new Promise((resolve) => {
+                if (!db) { resolve(); return; }
+                try {
+                    const transaction = db.transaction(["fileStore"], "readwrite");
+                    const store = transaction.objectStore("fileStore");
+                    const req = store.delete(trackId);
+                    req.onsuccess = () => resolve();
+                    req.onerror = () => resolve();
+                } catch (e) { console.error("Failed to delete audio Blob:", e); resolve(); }
+            });
+        }
 
-                        tracksDatabase.push({
-                            id: crypto.randomUUID(),
-                            name: trackName, 
-                            size: (file.size / (1024 * 1024)).toFixed(2) + ' MB',
-                            coverData: coverUrl || null,
-                            fileObject: file
-                        });
-                        tracksAdded++;
+        function saveSessionData() {
+            if (!db) { saveLocalStorageFallback(); return; }
+            try {
+                const transaction = db.transaction(["stateStore"], "readwrite");
+                const store = transaction.objectStore("stateStore");
+                const strippedTracks = tracksDatabase.map(t => ({ id: t.id, name: t.name, size: t.size, coverData: t.coverData }));
+                store.put(strippedTracks, "skully_tracks");
+                store.put(playlistsDatabase, "skully_playlists");
+                store.put(foldersDatabase, "skully_folders");
+                store.put(appSettings, "skully_settings");
+            } catch (e) { console.error("IndexedDB save error:", e); saveLocalStorageFallback(); }
+        }
+
+        function loadSessionData(callback) {
+            if (!db) { loadLocalStorageFallback(); if (callback) callback(); return; }
+            try {
+                const transaction = db.transaction(["stateStore"], "readonly");
+                const store = transaction.objectStore("stateStore");
+                const tracksReq = store.get("skully_tracks");
+                const playlistsReq = store.get("skully_playlists");
+                const foldersReq = store.get("skully_folders");
+                const settingsReq = store.get("skully_settings");
+                let completedRequests = 0;
+                const checkCompletion = () => { completedRequests++; if (completedRequests === 4 && callback) callback(); };
+                tracksReq.onsuccess = function() { if (tracksReq.result) tracksDatabase = tracksReq.result; checkCompletion(); };
+                tracksReq.onerror = checkCompletion;
+                playlistsReq.onsuccess = function() { if (playlistsReq.result) playlistsDatabase = playlistsReq.result; checkCompletion(); };
+                playlistsReq.onerror = checkCompletion;
+                foldersReq.onsuccess = function() { if (foldersReq.result) foldersDatabase = foldersReq.result; checkCompletion(); };
+                foldersReq.onerror = checkCompletion;
+                settingsReq.onsuccess = function() {
+                    if (settingsReq.result) {
+                        appSettings = settingsReq.result;
+                        if (!appSettings.playstyleMode) appSettings.playstyleMode = "full";
+                        if (appSettings.crossfadeVal === undefined) appSettings.crossfadeVal = 0;
                     }
+                    checkCompletion();
+                };
+                settingsReq.onerror = checkCompletion;
+            } catch (e) { console.error("IndexedDB load error:", e); loadLocalStorageFallback(); if (callback) callback(); }
+        }
+
+        function saveLocalStorageFallback() {
+            try {
+                localStorage.setItem('skully_tracks', JSON.stringify(tracksDatabase));
+                const strippedPlaylists = playlistsDatabase.map(pl => ({
+                    id: pl.id, name: pl.name, folder: pl.folder || null,
+                    tracks: pl.tracks.map(t => ({ id: t.id, name: t.name, artist: t.artist || "Unknown Artist", size: t.size }))
+                }));
+                localStorage.setItem('skully_playlists', JSON.stringify(strippedPlaylists));
+                localStorage.setItem('skully_folders', JSON.stringify(foldersDatabase));
+                localStorage.setItem('skully_settings', JSON.stringify(appSettings));
+            } catch (e) { console.warn("Storage fallback full:", e); }
+        }
+
+        function loadLocalStorageFallback() {
+            try {
+                const storedTracks = localStorage.getItem('skully_tracks');
+                const storedPlaylists = localStorage.getItem('skully_playlists');
+                const storedFolders = localStorage.getItem('skully_folders');
+                const storedSettings = localStorage.getItem('skully_settings');
+                if (storedTracks) tracksDatabase = JSON.parse(storedTracks);
+                if (storedPlaylists) {
+                    playlistsDatabase = JSON.parse(storedPlaylists).map(pl => ({
+                        id: pl.id, name: pl.name, folder: pl.folder || null, coverData: null,
+                        tracks: pl.tracks.map(t => ({ id: t.id, name: t.name, artist: t.artist || "Unknown Artist", size: t.size, fileObject: null }))
+                    }));
                 }
-            }
-
-            if (tracksAdded > 0) {
-                updateTracksUI();
-                updateSettingsStats();
-                saveSessionData();
-            }
+                if (storedFolders) foldersDatabase = JSON.parse(storedFolders);
+                if (storedSettings) appSettings = JSON.parse(storedSettings);
+            } catch (e) { console.error("Storage fallback failed:", e); }
         }
 
-        function removeTrack(trackId, event) {
-            if (event) {
-                event.stopPropagation();
-            }
-            
-            if (currentlyPlayingTrackId === trackId) {
-                audioPlayer.pause();
-                audioPlayer.src = "";
-                currentTrackIndex = -1;
-                currentlyPlayingTrackId = null;
-                currentlyPlayingPlaylistId = null;
-                updateDeckInfo("No Track Active", "SkullyPlayer session", false);
-            }
-
-            tracksDatabase = tracksDatabase.filter(track => track.id !== trackId);
-            
-            // Remove from playlists too
-            playlistsDatabase.forEach(pl => {
-                if (pl.id === currentlyPlayingPlaylistId) {
-                    const deletedIndex = pl.tracks.findIndex(t => t.id === trackId);
-                    if (deletedIndex !== -1 && deletedIndex < currentTrackIndex) {
-                        currentTrackIndex = Math.max(0, currentTrackIndex - 1);
-                    }
-                }
-                pl.tracks = pl.tracks.filter(t => t.id !== trackId);
-            });
-
-            updateTracksUI();
-            updateSettingsStats();
-            updatePlaylistsUI();
-            if (activePlaylistId) {
-                updatePortalQueueUI();
-            }
-            saveSessionData();
-        }
-
-        function populateBulkSelectOptions() {
-            const bulkSelect = document.getElementById('bulk-playlist-select');
-            if (!bulkSelect) return;
-
-            let optionsHtml = `<option value="" disabled selected class="bg-zinc-950 text-gray-500 text-[10px]">Select Playlist...</option>`;
-            playlistsDatabase.forEach(pl => {
-                optionsHtml += `<option value="${pl.id}" class="bg-zinc-900 text-white text-[11px]">${pl.name}</option>`;
-            });
-            bulkSelect.innerHTML = optionsHtml;
-        }
-
-        function bulkAddSongsToPlaylist() {
-            const select = document.getElementById('bulk-playlist-select');
-            const playlistId = select.value;
-            if (!playlistId || tracksDatabase.length === 0) return;
-
-            const playlist = playlistsDatabase.find(pl => pl.id === playlistId);
-            if (!playlist) return;
-
-            tracksDatabase.forEach(track => {
-                const alreadyAdded = playlist.tracks.some(item => item.id === track.id);
-                if (!alreadyAdded) {
-                    playlist.tracks.push({
-                        id: track.id,
-                        name: track.name,
-                        artist: "Unknown Artist",
-                        size: track.size,
-                        coverData: track.coverData || null,
-                        fileObject: track.fileObject
-                    });
-                }
-            });
-
-            tracksDatabase = [];
-            updateTracksUI();
-            updateSettingsStats();
-            updatePlaylistsUI();
-            saveSessionData();
-        }
-
-        function addTrackToPlaylist(trackId, selectorElement) {
-            const playlistId = selectorElement.value;
-            if (!playlistId) return;
-
-            const playlist = playlistsDatabase.find(pl => pl.id === playlistId);
-            const track = tracksDatabase.find(t => t.id === trackId);
-
-            if (playlist && track) {
-                const alreadyAdded = playlist.tracks.some(item => item.id === trackId);
-                if (!alreadyAdded) {
-                    playlist.tracks.push({
-                        id: track.id,
-                        name: track.name,
-                        artist: "Unknown Artist",
-                        size: track.size,
-                        coverData: track.coverData || null,
-                        fileObject: track.fileObject
-                    });
-                    tracksDatabase = [];
-                    updateTracksUI();
-                    updateSettingsStats();
-                    updatePlaylistsUI();
-                    saveSessionData();
-                }
-            }
-            selectorElement.selectedIndex = 0;
-        }
-
-        function removePlaylistTrack(playlistId, trackId) {
-            const playlist = playlistsDatabase.find(pl => pl.id === playlistId);
-            if (playlist) {
-                playlist.tracks = playlist.tracks.filter(t => t.id !== trackId);
-                saveSessionData();
-                updatePlaylistsUI();
-            }
+        function triggerFileInput() {
+            const input = document.getElementById('file-input');
+            if (input) input.click();
         }
 
         function createNewPlaylist() {
             const input = document.getElementById('playlist-name-input');
             const folderSelect = document.getElementById('playlist-folder-select');
-            const name = input.value.trim();
-
+            const name = input?.value.trim();
             if (!name) return;
-
             const isDuplicate = playlistsDatabase.some(pl => pl.name.toLowerCase() === name.toLowerCase());
             if (isDuplicate) return;
-
             playlistsDatabase.push({
-                id: crypto.randomUUID(),
-                name: name,
-                folder: folderSelect.value || null, // Assign to selected Folder folder
-                coverData: tempPlaylistCoverBase64 || null, 
+                id: crypto.randomUUID(), name: name,
+                folder: folderSelect?.value || null,
+                coverData: tempPlaylistCoverBase64 || null,
                 tracks: []
             });
-
-            input.value = '';
+            if (input) input.value = '';
             tempPlaylistCoverBase64 = null;
             document.getElementById('playlist-cover-preview-wrapper').classList.add('hidden');
             document.getElementById('playlist-cover-preview').removeAttribute('src');
             document.getElementById('playlist-cover-btn-text').textContent = "Choose Cover Picture";
             document.getElementById('playlist-cover-input').value = "";
-
             updatePlaylistsUI();
             updateTracksUI();
             saveSessionData();
         }
 
-        // Now Playing Playlist Context Bar helper (Show active playing playlist location banner)
+        function updateSliderProgressBackground(slider, percent) {
+            const color = getComputedStyle(document.documentElement).getPropertyValue('--slider-fill-color').trim() || '#ff5e3a';
+            slider.style.background = `linear-gradient(to right, ${color} 0%, ${color} ${percent}%, rgba(255, 255, 255, 0.12) ${percent}%, rgba(255, 255, 255, 0.12) 100%)`;
+        }
+
+        function formatTime(secs) {
+            if (isNaN(secs) || secs === Infinity || secs < 0) return "0:00";
+            const minutes = Math.floor(secs / 60) || 0;
+            const seconds = Math.floor(secs % 60) || 0;
+            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+
+        function bootApplication() {
+            initIndexedDB(() => {
+                updateTracksUI();
+                updatePlaylistsUI();
+                updateFoldersUI();
+                updateSettingsStats();
+                applyActiveSettingsToUI();
+            });
+        }
+
+        function seekAudio(value) {
+            if (isNaN(audioPlayer.duration)) return;
+            audioPlayer.currentTime = (value / 100) * audioPlayer.duration;
+        }
+
         function updateNowPlayingPlaylistBar() {
             const bar = document.getElementById('now-playing-playlist-bar');
             const nameLabel = document.getElementById('now-playing-playlist-name');
             if (!bar || !nameLabel) return;
-
             if (currentlyPlayingPlaylistId && !audioPlayer.paused) {
                 const pl = playlistsDatabase.find(p => p.id === currentlyPlayingPlaylistId);
-                if (pl) {
-                    nameLabel.textContent = pl.name;
-                    bar.classList.remove('hidden');
-                    return;
-                }
+                if (pl) { nameLabel.textContent = pl.name; bar.classList.remove('hidden'); return; }
             }
             bar.classList.add('hidden');
         }
 
-        function jumpToPlayingPlaylist() {
-            if (currentlyPlayingPlaylistId) {
-                enterPlaylistPortal(currentlyPlayingPlaylistId);
-            }
-        }
-
-        // Render created playlists onto view grid list
-        function updatePlaylistsUI() {
-            const shelfEmpty = document.getElementById('playlist-shelf-empty');
-            const shelfList = document.getElementById('playlist-shelf-list');
-
-            if (!shelfEmpty || !shelfList) return;
-
-            const filteredPlaylists = playlistsDatabase.filter(pl => {
-                if (activeFolderFilter === null) return true;
-                return pl.folder === activeFolderFilter;
-            });
-
-            if (filteredPlaylists.length === 0) {
-                shelfEmpty.classList.remove('hidden');
-                shelfList.classList.add('hidden');
-                updateNowPlayingPlaylistBar();
-                return;
-            }
-
-            shelfEmpty.classList.add('hidden');
-            shelfList.classList.remove('hidden');
-
-            shelfList.innerHTML = '';
-
-            filteredPlaylists.forEach(pl => {
-                const folder = document.createElement('div');
-                folder.className = "theme-card-bg rounded-xl p-4 flex items-center justify-between border theme-border hover:border-orange-500/50 cursor-pointer transition shadow duration-150 relative group min-h-[70px]";
-                folder.onclick = () => enterPlaylistPortal(pl.id);
-
-                let coverHtml = `
-                    <div class="w-10 h-10 rounded bg-black/60 border theme-border flex items-center justify-center shrink-0 overflow-hidden">
-                        <i class="fa-solid fa-compact-disc theme-accent-color text-xs"></i>
-                    </div>
-                `;
-
-                if (pl.coverData) {
-                    coverHtml = `
-                        <div class="w-10 h-10 rounded border theme-border shrink-0 overflow-hidden bg-black/40">
-                            <img src="${pl.coverData}" class="w-full h-full object-cover">
-                        </div>
-                    `;
-                }
-
-                folder.innerHTML = `
-                    <div class="flex items-center gap-3 min-w-0 pr-8 text-left">
-                        ${coverHtml}
-                        <div class="overflow-hidden">
-                            <h4 class="text-xs font-black theme-text-main truncate">${pl.name}</h4>
-                            <p class="text-[9px] theme-text-sub mt-0.5">${pl.tracks.length} track${pl.tracks.length === 1 ? '' : 's'}</p>
-                        </div>
-                    </div>
-                    <button onclick="event.stopPropagation(); deletePlaylist('${pl.id}')" class="absolute top-4 right-4 text-zinc-600 hover:text-red-400 transition" title="Delete Playlist">
-                        <i class="fa-solid fa-trash-can text-[10px]"></i>
-                    </button>
-                `;
-                shelfList.appendChild(folder);
-            });
-
-            updateNowPlayingPlaylistBar();
-        }
-
-        // Playlist Deletion
-        function deletePlaylist(id) {
-            if (currentlyPlayingPlaylistId === id) {
-                audioPlayer.pause();
-                audioPlayer.src = "";
-                currentTrackIndex = -1;
-                currentlyPlayingTrackId = null;
-                currentlyPlayingPlaylistId = null;
-                updateDeckInfo("No Track Active", "SkullyPlayer session", false);
-            }
-
-            if (activePlaylistId === id) {
-                activePlaylistId = null;
-                exitPlaylistPortal();
-            }
-
-            playlistsDatabase = playlistsDatabase.filter(pl => pl.id !== id);
-            updatePlaylistsUI();
-            updateTracksUI();
-            saveSessionData();
-        }
-
-        // Portal Drilldown: Slide "Inside" Playlist
-        function enterPlaylistPortal(playlistId) {
-            activePlaylistId = playlistId;
-            const playlist = playlistsDatabase.find(pl => pl.id === playlistId);
-            if (!playlist) return;
-
-            document.getElementById('playlist-view-shelf').classList.add('hidden');
-            document.getElementById('playlist-view-portal').classList.remove('hidden');
-
-            document.getElementById('active-portal-title').textContent = playlist.name;
-            document.getElementById('active-portal-counter').textContent = `${playlist.tracks.length} tracks uploaded`;
-
-            const headerCover = document.getElementById('portal-header-cover');
-            if (playlist.coverData) {
-                headerCover.innerHTML = `<img src="${playlist.coverData}" class="w-full h-full object-cover">`;
-            } else {
-                headerCover.innerHTML = `<i class="fa-solid fa-compact-disc theme-accent-color text-[11px]"></i>`;
-            }
-
-            updatePortalQueueUI();
-            updateNavigationButtonsState(playlist);
-            
-            if (currentlyPlayingPlaylistId === playlistId && currentlyPlayingTrackId) {
-                const track = playlist.tracks[currentTrackIndex];
-                if (track) {
-                    updateDeckInfo(track.name, track.artist || "Unknown Artist", !audioPlayer.paused, track.coverData);
-                }
-            } else {
-                updateDeckInfo("No Track Active", "SkullyPlayer session", false);
-            }
-        }
-
-        function exitPlaylistPortal() {
-            document.getElementById('playlist-view-portal').classList.add('hidden');
-            document.getElementById('playlist-view-shelf').classList.remove('hidden');
-            activePlaylistId = null;
-            updateNowPlayingPlaylistBar();
-        }
-
-        // Change Song ordering inside Playlist arrays
-        function moveSongInPlaylist(playlistId, trackId, direction) {
-            const playlist = playlistsDatabase.find(pl => pl.id === playlistId);
-            if (!playlist) return;
-
-            const index = playlist.tracks.findIndex(t => t.id === trackId);
-            if (index === -1) return;
-
-            const targetIndex = index + direction;
-            if (targetIndex < 0 || targetIndex >= playlist.tracks.length) return;
-
-            // Swapping array positions
-            const temp = playlist.tracks[index];
-            playlist.tracks[index] = playlist.tracks[targetIndex];
-            playlist.tracks[targetIndex] = temp;
-
-            // If active, sync pointer
-            if (currentlyPlayingPlaylistId === playlistId && currentlyPlayingTrackId) {
-                currentTrackIndex = playlist.tracks.findIndex(t => t.id === currentlyPlayingTrackId);
-            }
-
-            updatePortalQueueUI();
-            updateNavigationButtonsState(playlist);
-            saveSessionData();
-        }
-
-        // Reorder helper for drag and drop actions
-        function reorderSongsInPlaylist(fromIndex, toIndex) {
-            const playlist = playlistsDatabase.find(pl => pl.id === activePlaylistId);
-            if (!playlist || fromIndex === toIndex) return;
-
-            const songToMove = playlist.tracks.splice(fromIndex, 1)[0];
-            playlist.tracks.splice(toIndex, 0, songToMove);
-
-            // Sync currently playing pointer if needed
-            if (currentlyPlayingPlaylistId === activePlaylistId && currentlyPlayingTrackId) {
-                currentTrackIndex = playlist.tracks.findIndex(t => t.id === currentlyPlayingTrackId);
-            }
-
-            updatePortalQueueUI();
-            updateNavigationButtonsState(playlist);
-            saveSessionData();
-        }
-
-        // 8. Portal Audio Queue UI Rendering
-        function updatePortalQueueUI() {
-            const listContainer = document.getElementById('portal-queue-list');
-            const emptyState = document.getElementById('portal-empty-state');
-            const playlist = playlistsDatabase.find(pl => pl.id === activePlaylistId);
-
-            if (!listContainer || !emptyState) return;
-
-            if (!playlist || playlist.tracks.length === 0) {
-                emptyState.classList.remove('hidden');
-                listContainer.classList.add('hidden');
-                return;
-            }
-
-            const searchQuery = (document.getElementById('playlist-portal-search')?.value || "").toLowerCase().trim();
-            const filteredTracks = playlist.tracks.map((t, idx) => ({ ...t, originalIndex: idx }))
-                .filter(track => track.name.toLowerCase().includes(searchQuery));
-
-            emptyState.classList.add('hidden');
-            listContainer.classList.remove('hidden');
-
-            listContainer.innerHTML = '';
-
-            filteredTracks.forEach((track, displayIdx) => {
-                const isCurrent = (track.originalIndex === currentTrackIndex) && (currentlyPlayingPlaylistId === activePlaylistId);
-                const row = document.createElement('div');
-                row.className = `flex items-center justify-between p-3 border rounded-xl select-none cursor-pointer transition duration-150 ${isCurrent ? 'theme-card-bg border-orange-500/50' : 'bg-black/10 border-transparent hover:border-zinc-800 hover:bg-black/30'}`;
-                
-                // Active click playback trigger
-                row.onclick = () => loadAndPlayTrackDirectly(track.originalIndex);
-
-                // Re-ordering drag and drop properties
-                row.setAttribute('draggable', 'true');
-                row.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text/plain', track.originalIndex);
-                    row.classList.add('opacity-40');
-                });
-                row.addEventListener('dragend', () => {
-                    row.classList.remove('opacity-40');
-                });
-                row.addEventListener('dragover', (e) => {
-                    e.preventDefault(); // Allows drop actions
-                });
-                row.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    const fromIndex = parseInt(e.dataTransfer.getData('text/plain'));
-                    const toIndex = track.originalIndex;
-                    reorderSongsInPlaylist(fromIndex, toIndex);
-                });
-
-                const indexDisplay = (track.originalIndex + 1) < 10 ? `0${track.originalIndex + 1}` : (track.originalIndex + 1);
-                const trackArtist = track.artist || "Unknown Artist";
-
-                row.innerHTML = `
-                    <div class="flex items-center gap-3.5 overflow-hidden flex-1 min-w-0 text-left">
-                        <!-- Drag Handle Icon & index indicator -->
-                        <span class="text-zinc-600 hover:text-white cursor-grab active:cursor-grabbing p-1">
-                            <i class="fa-solid fa-grip-vertical text-[10px]"></i>
-                        </span>
-                        <span class="text-[9px] font-mono text-zinc-600 w-5 shrink-0">${indexDisplay}</span>
-                        <!-- Cover Artwork thumbnail indicator -->
-                        <div class="w-8 h-8 rounded-lg border theme-border shrink-0 overflow-hidden flex items-center justify-center bg-black/45">
-                            ${track.coverData ? `<img src="${track.coverData}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-music text-[9px] theme-accent-color"></i>`}
-                        </div>
-                        <div class="overflow-hidden flex-1">
-                            <h4 class="text-xs font-bold ${isCurrent ? 'theme-accent-color' : 'theme-text-main'} truncate">${track.name}</h4>
-                            <p class="text-[9px] theme-text-sub mt-0.5">${trackArtist}</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-1.5 shrink-0 relative z-10">
-                        <button onclick="event.stopPropagation(); openEditSongModal('${playlist.id}', '${track.id}')" class="text-zinc-500 hover:text-orange-500 p-1.5 transition" title="Edit Metadata">
-                            <i class="fa-solid fa-pen text-[9px]"></i>
-                        </button>
-                        <button onclick="event.stopPropagation(); removeSongFromPlaylistPortal('${track.id}')" class="text-zinc-500 hover:text-red-400 p-1.5 transition" title="Delete Song">
-                            <i class="fa-solid fa-xmark text-[10px]"></i>
-                        </button>
-                    </div>
-                `;
-                listContainer.appendChild(row);
-            });
-        }
-
-        function removeSongFromPlaylistPortal(trackId) {
-            const playlist = playlistsDatabase.find(pl => pl.id === activePlaylistId);
-            if (!playlist) return;
-
-            if (currentlyPlayingTrackId === trackId) {
-                audioPlayer.pause();
-                audioPlayer.src = "";
-                currentTrackIndex = -1;
-                currentlyPlayingTrackId = null;
-                currentlyPlayingPlaylistId = null;
-                updateDeckInfo("No Track Active", "SkullyPlayer session", false);
-            } else {
-                const deletedIndex = playlist.tracks.findIndex(t => t.id === trackId);
-                if (deletedIndex !== -1 && deletedIndex < currentTrackIndex) {
-                    currentTrackIndex = Math.max(0, currentTrackIndex - 1);
-                }
-            }
-
-            playlist.tracks = playlist.tracks.filter(t => t.id !== trackId);
-            document.getElementById('active-portal-counter').textContent = `${playlist.tracks.length} tracks uploaded`;
-            
-            updatePortalQueueUI();
-            updateNavigationButtonsState(playlist);
-            saveSessionData();
-        }
-
-        function updateNavigationButtonsState(playlist) {
-            const prevBtn = document.getElementById('player-btn-prev');
-            const nextBtn = document.getElementById('player-btn-next');
-            if (!playlist) return;
-
-            if (prevBtn) {
-                if (currentTrackIndex > 0) {
-                    prevBtn.classList.remove('opacity-30', 'cursor-not-allowed');
+        function updateDeckInfo(title, artist, isPlaying, coverBase64 = null) {
+            const songLabel = document.getElementById('deck-song-title');
+            const artistLabel = document.getElementById('deck-artist-title');
+            const icon = document.getElementById('play-pause-icon');
+            const coverWrapper = document.getElementById('deck-track-cover');
+            if (songLabel) songLabel.textContent = title;
+            if (artistLabel) artistLabel.textContent = artist;
+            if (coverWrapper) {
+                if (coverBase64) {
+                    coverWrapper.innerHTML = `<img src="${coverBase64}" class="w-full h-full object-cover">`;
                 } else {
-                    prevBtn.classList.add('opacity-30', 'cursor-not-allowed');
+                    coverWrapper.innerHTML = `<i class="fa-solid fa-music theme-accent-color text-[11px]"></i>`;
                 }
             }
-
-            if (nextBtn) {
-                if (currentTrackIndex < playlist.tracks.length - 1 && currentTrackIndex !== -1) {
-                    nextBtn.classList.remove('opacity-30', 'cursor-not-allowed');
-                } else {
-                    nextBtn.classList.add('opacity-30', 'cursor-not-allowed');
-                }
-            }
-        }
-
-        // Initiate/Resume Hardware-Level Web Audio Context (Safari/iOS Volume Sync Bypass)
-        function setupWebAudioContext() {
-            try {
-                if (!audioCtx) {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    gainNode = audioCtx.createGain();
-                    sourceNode = audioCtx.createMediaElementSource(audioPlayer);
-                    sourceNode.connect(gainNode);
-                    gainNode.connect(audioCtx.destination);
-                    
-                    // Sync initial volume slider value to Node
-                    const volValue = document.getElementById('deck-volume-slider')?.value || 80;
-                    gainNode.gain.setValueAtTime(volValue / 100, audioCtx.currentTime);
-                }
-                if (audioCtx.state === "suspended") {
-                    audioCtx.resume();
-                }
-            } catch (e) {
-                console.warn("Hardware volume wrapper failed to initialize:", e);
-            }
-        }
-
-        // Audio Player seeks, stops, next, previous rules
-        function loadAndPlayTrackDirectly(index) {
-            const playlist = playlistsDatabase.find(pl => pl.id === activePlaylistId);
-            if (!playlist || index < 0 || index >= playlist.tracks.length) return;
-
-            if (currentTrackIndex === index && currentlyPlayingPlaylistId === activePlaylistId && !audioPlayer.paused) {
-                return;
-            }
-
-            setupWebAudioContext();
-
-            currentTrackIndex = index;
-            const track = playlist.tracks[currentTrackIndex];
-
-            if (audioPlayer.src) {
-                URL.revokeObjectURL(audioPlayer.src);
-            }
-
-            if (track.fileObject) {
-                const localUrl = URL.createObjectURL(track.fileObject);
-                audioPlayer.src = localUrl;
-                currentlyPlayingTrackId = track.id;
-                currentlyPlayingPlaylistId = activePlaylistId;
-            } else {
-                updateDeckInfo("File Unloaded (Re-upload Song)", "SkullyPlayer local security", false);
-                return;
-            }
-
-            const seekSlider = document.getElementById('deck-seek-slider');
-            if (seekSlider) {
-                seekSlider.value = 0;
-                updateSliderProgressBackground(seekSlider, 0);
-            }
-
-            updateDeckInfo(track.name, track.artist || "Unknown Artist", true, track.coverData);
-
-            audioPlayer.play().catch(err => {
-                console.log("Audio play error:", err);
-            });
-
-            updatePortalQueueUI();
-            updateNavigationButtonsState(playlist);
-            updateNowPlayingPlaylistBar();
-        }
-
-        // Adjust volume track parameters
-        function adjustVolume(value) {
-            setupWebAudioContext();
-            
-            const volumeFloat = value / 100;
-            if (gainNode) {
-                gainNode.gain.setValueAtTime(volumeFloat, audioCtx.currentTime);
-            } else {
-                audioPlayer.volume = volumeFloat;
-            }
-
-            const percentageLabel = document.getElementById('deck-volume-percentage');
-            if (percentageLabel) percentageLabel.textContent = `${value}%`;
-
-            const volSlider = document.getElementById('deck-volume-slider');
-            if (volSlider) {
-                updateSliderProgressBackground(volSlider, value);
-            }
-
-            const icon = document.querySelector('#player-btn-volume i');
             if (icon) {
-                if (value == 0) {
-                    icon.className = "fa-solid fa-volume-xmark text-[10px]";
-                } else if (value < 40) {
-                    icon.className = "fa-solid fa-volume-low text-[10px]";
-                } else {
-                    icon.className = "fa-solid fa-volume-high text-[10px]";
-                }
+                icon.className = isPlaying ? "fa-solid fa-pause text-[10px]" : "fa-solid fa-play text-[10px] ml-0.5";
             }
         }
 
-        function toggleMute() {
-            setupWebAudioContext();
-            const volSlider = document.getElementById('deck-volume-slider');
-            const percentageLabel = document.getElementById('deck-volume-percentage');
-            const icon = document.querySelector('#player-btn-volume i');
-
-            let isCurrentlyMuted = false;
-            if (gainNode) {
-                isCurrentlyMuted = gainNode.gain.value === 0;
-            } else {
-                isCurrentlyMuted = audioPlayer.volume === 0;
-            }
-
-            if (!isCurrentlyMuted) {
-                if (gainNode) {
-                    gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-                } else {
-                    audioPlayer.volume = 0;
-                }
-                if (volSlider) {
-                    volSlider.value = 0;
-                    updateSliderProgressBackground(volSlider, 0);
-                }
-                if (percentageLabel) percentageLabel.textContent = `0%`;
-                if (icon) icon.className = "fa-solid fa-volume-xmark text-[10px]";
-            } else {
-                if (gainNode) {
-                    gainNode.gain.setValueAtTime(0.8, audioCtx.currentTime);
-                } else {
-                    audioPlayer.volume = 0.8;
-                }
-                if (volSlider) {
-                    volSlider.value = 80;
-                    updateSliderProgressBackground(volSlider, 80);
-                }
-                if (percentageLabel) percentageLabel.textContent = `80%`;
-                if (icon) icon.className = "fa-solid fa-volume-high text-[10px]";
-            }
+        function updateSettingsStats() {
+            const count = tracksDatabase.length;
+            const size = tracksDatabase.reduce((acc, curr) => acc + parseFloat(curr.size || 0), 0).toFixed(2);
+            const countEl = document.getElementById('settings-stat-count');
+            const sizeEl = document.getElementById('settings-stat-size');
+            if (countEl) countEl.textContent = count;
+            if (sizeEl) sizeEl.textContent = `${size} MB`;
         }
 
-        function toggleShuffle() {
-            isShuffle = !isShuffle;
-            const btn = document.getElementById('player-btn-shuffle');
-            if (btn) {
-                btn.textContent = isShuffle ? "Shuffle: On" : "Shuffle: Off";
-                btn.style.color = isShuffle ? "var(--musi-orange)" : "";
-                btn.style.borderColor = isShuffle ? "var(--musi-orange)" : "";
+        function handlePlaylistCoverSelection(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                tempPlaylistCoverBase64 = e.target.result;
+                document.getElementById('playlist-cover-preview').src = tempPlaylistCoverBase64;
+                document.getElementById('playlist-cover-preview-wrapper').classList.remove('hidden');
+                document.getElementById('playlist-cover-btn-text').textContent = "Change Cover";
             }
+            reader.readAsDataURL(file);
         }
 
-        function toggleRepeat() {
-            isRepeat = !isRepeat;
-            const btn = document.getElementById('player-btn-repeat');
-            if (btn) {
-                btn.textContent = isRepeat ? "Loop: On" : "Loop: Off";
-                btn.style.color = isRepeat ? "var(--musi-orange)" : "";
-                btn.style.borderColor = isRepeat ? "var(--musi-orange)" : "";
-            }
-        }
+        // --- CUSTOM SLIDERS & BLUR PANEL HANDLERS (Feature Restoration) ---
 
-        // Toggle Playstyle
-        function togglePlaystyle() {
-            const isFull = (appSettings.playstyleMode || "full") === "full";
-            appSettings.playstyleMode = isFull ? "single" : "full";
-
-            const btn = document.getElementById('player-btn-playstyle');
-            if (btn) {
-                const nowFull = appSettings.playstyleMode === "full";
-                btn.textContent = nowFull ? "Playstyle: Full" : "Playstyle: Single";
-                btn.style.color = nowFull ? "var(--musi-orange)" : "";
-                btn.style.borderColor = nowFull ? "var(--musi-orange)" : "";
-            }
+        function changeBoxTransparency(value) {
+            const opacity = (value / 100).toFixed(2);
+            document.documentElement.style.setProperty('--card-opacity', opacity);
+            const valLabel = document.getElementById('transparency-val');
+            if (valLabel) valLabel.textContent = value + '%';
+            appSettings.cardOpacity = parseInt(value);
             saveSessionData();
         }
 
-        // Meta editor handlers
-        function openEditSongModal(playlistId, trackId) {
-            editingPlaylistId = playlistId;
-            editingTrackId = trackId;
-
-            const playlist = playlistsDatabase.find(pl => pl.id === playlistId);
-            if (!playlist) return;
-
-            const track = playlist.tracks.find(t => t.id === trackId);
-            if (!track) return;
-
-            document.getElementById('edit-song-title-input').value = track.name;
-            document.getElementById('edit-song-artist-input').value = track.artist || "Unknown Artist";
-
-            document.getElementById('edit-song-modal').classList.remove('hidden');
-        }
-
-        // Close Edit Info Modal
-        function closeEditSongModal() {
-            document.getElementById('edit-song-modal').classList.add('hidden');
-            editingPlaylistId = null;
-            editingTrackId = null;
-        }
-
-        // Save Track Metadata
-        function saveTrackMetadata() {
-            const playlist = playlistsDatabase.find(pl => pl.id === editingPlaylistId);
-            if (!playlist) return;
-
-            const track = playlist.tracks.find(t => t.id === editingTrackId);
-            if (!track) return;
-
-            const newTitle = document.getElementById('edit-song-title-input').value.trim();
-            const newArtist = document.getElementById('edit-song-artist-input').value.trim();
-
-            if (newTitle) {
-                track.name = newTitle;
-            }
-            track.artist = newArtist || "Unknown Artist";
-
-            if (currentlyPlayingTrackId === editingTrackId) {
-                updateDeckInfo(track.name, track.artist, !audioPlayer.paused, track.coverData);
-            }
-
-            updatePortalQueueUI();
+        function changeBoxBlur(value) {
+            document.documentElement.style.setProperty('--card-blur', value + 'px');
+            const blurLabel = document.getElementById('blur-val');
+            if (blurLabel) blurLabel.textContent = value + 'px';
+            appSettings.cardBlurVal = parseInt(value);
             saveSessionData();
-            closeEditSongModal();
+        }
+
+        function changeCrossfade(value) {
+            const label = document.getElementById('settings-crossfade-val');
+            if (label) {
+                label.textContent = value == 0 ? "Disabled (0s)" : `${value} Seconds`;
+            }
+            appSettings.crossfadeVal = parseInt(value);
+            saveSessionData();
         }
 
         function toggleHardwareAcceleration(checked) {
             const container = document.getElementById('app-bg-container');
             if (container) {
-                if (checked) {
-                    container.style.willChange = 'transform';
-                    container.style.transform = 'translateZ(0)';
-                } else {
-                    container.style.willChange = 'auto';
-                    container.style.transform = 'none';
-                }
+                container.style.willChange = checked ? 'transform' : 'auto';
+                container.style.transform = checked ? 'translateZ(0)' : 'none';
             }
             appSettings.hwAccel = checked;
             saveSessionData();
@@ -2220,60 +1092,255 @@
             saveSessionData();
         }
 
-        function playNextTrack() {
-            const playlist = playlistsDatabase.find(pl => pl.id === currentlyPlayingPlaylistId);
-            if (!playlist || playlist.tracks.length === 0) return;
+        function updateFoldersUI() {
+            const select = document.getElementById('playlist-folder-select');
+            const container = document.getElementById('folders-container');
+            if (!select || !container) return;
+            let optionsHtml = `<option value="" class="bg-zinc-950 text-white">None (Root Directory)</option>`;
+            foldersDatabase.forEach(f => {
+                optionsHtml += `<option value="${f}" class="bg-zinc-950 text-white">${f}</option>`;
+            });
+            select.innerHTML = optionsHtml;
+            container.innerHTML = `<button onclick="filterPlaylistsByFolder(null)" class="px-3.5 py-1.5 rounded-full border text-[10px] font-black uppercase tracking-wider transition ${activeFolderFilter === null ? 'theme-accent-bg border-transparent text-white' : 'bg-black/30 border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500'}">All</button>`;
+            foldersDatabase.forEach(f => {
+                const isSelected = activeFolderFilter === f;
+                container.innerHTML += `
+                    <div class="relative group shrink-0">
+                        <button onclick="filterPlaylistsByFolder('${f}')" class="px-3.5 py-1.5 rounded-full border text-[10px] font-black uppercase tracking-wider transition ${isSelected ? 'theme-accent-bg border-transparent text-white' : 'bg-black/30 border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500'}">${f}</button>
+                        <button onclick="deleteFolder('${f}')" class="absolute -top-1 -right-1 bg-red-600 text-white w-3 h-3 rounded-full flex items-center justify-center text-[7px] opacity-0 group-hover:opacity-100 transition shadow">&times;</button>
+                    </div>
+                `;
+            });
+        }
 
-            // Only trigger next song if there's a subsequent song in the active playlist
-            if (isShuffle) {
-                const randIndex = Math.floor(Math.random() * playlist.tracks.length);
-                loadAndPlayTrackDirectly(randIndex);
-            } else {
-                let nextIndex = currentTrackIndex + 1;
-                if (nextIndex < playlist.tracks.length) {
-                    loadAndPlayTrackDirectly(nextIndex);
+        function switchTab(targetTab) {
+            const tabs = ['home', 'playlist', 'settings'];
+            tabs.forEach(tab => {
+                const section = document.getElementById(`tab-content-${tab}`);
+                const navBtn = document.getElementById(`nav-btn-${tab}`);
+                if (tab === targetTab) {
+                    if (section) { section.classList.remove('opacity-0', 'pointer-events-none'); section.classList.add('opacity-100'); }
+                    if (navBtn) navBtn.style.color = "var(--musi-orange)";
                 } else {
-                    // Last track, stop cleanly
-                    audioPlayer.pause();
-                    audioPlayer.currentTime = 0;
-                    const activeTr = playlist.tracks[currentTrackIndex];
-                    updateDeckInfo(activeTr ? activeTr.name : "No Track Active", activeTr ? (activeTr.artist || "Unknown Artist") : "SkullyPlayer session", false, activeTr ? activeTr.coverData : null);
-                    const seekSlider = document.getElementById('deck-seek-slider');
-                    if (seekSlider) {
-                        seekSlider.value = 0;
-                        updateSliderProgressBackground(seekSlider, 0);
-                    }
-                    updatePortalQueueUI();
-                    updateNowPlayingPlaylistBar();
+                    if (section) { section.classList.add('opacity-0', 'pointer-events-none'); section.classList.remove('opacity-100'); }
+                    if (navBtn) navBtn.style.color = "var(--text-sub)";
                 }
-            }
+            });
         }
 
-        function playPrevTrack() {
-            const playlist = playlistsDatabase.find(pl => pl.id === currentlyPlayingPlaylistId);
-            if (!playlist || playlist.tracks.length === 0) return;
-
-            // Only wrap previous if there is a song behind
-            let prevIndex = currentTrackIndex - 1;
-            if (prevIndex >= 0) {
-                loadAndPlayTrackDirectly(prevIndex);
-            }
-        }
-
-        // Toggle playback play/pause state dynamically
-        function togglePlayPause() {
-            const playlist = playlistsDatabase.find(pl => pl.id === activePlaylistId);
-            if (!playlist || playlist.tracks.length === 0) return;
-
-            if (currentTrackIndex === -1) {
-                loadAndPlayTrackDirectly(0);
+        function updateTracksUI() {
+            const listContainer = document.getElementById('uploaded-tracks-list');
+            const emptyState = document.getElementById('empty-queue-state');
+            const bulkBar = document.getElementById('bulk-actions-bar');
+            if (!listContainer) return;
+            const searchQuery = (document.getElementById('home-queue-search')?.value || "").toLowerCase().trim();
+            const filteredTracks = tracksDatabase.filter(track => track.name.toLowerCase().includes(searchQuery));
+            if (tracksDatabase.length === 0) {
+                if (emptyState) emptyState.classList.remove('hidden');
+                if (bulkBar) bulkBar.classList.add('hidden');
+                listContainer.classList.add('hidden');
                 return;
             }
+            if (emptyState) emptyState.classList.add('hidden');
+            if (bulkBar) { bulkBar.classList.remove('hidden'); populateBulkSelectOptions(); }
+            listContainer.classList.remove('hidden');
+            listContainer.innerHTML = '';
+            filteredTracks.forEach((track) => {
+                let selectOptions = `<option value="" disabled selected class="bg-zinc-950 text-gray-500 text-[10px]">Add to...</option>`;
+                playlistsDatabase.forEach(pl => {
+                    selectOptions += `<option value="${pl.id}" class="bg-zinc-900 text-white text-[11px]">${pl.name}</option>`;
+                });
+                const row = document.createElement('div');
+                row.className = "flex items-center justify-between p-3 bg-black/40 border theme-border rounded-lg select-none";
+                row.innerHTML = `
+                    <div class="flex items-center gap-2.5 overflow-hidden flex-1 min-w-0 pr-2">
+                        <div class="w-8 h-8 rounded-lg bg-black/60 border theme-border flex items-center justify-center shrink-0 overflow-hidden">
+                            ${track.coverData ? `<img src="${track.coverData}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-music text-[9px] theme-accent-color"></i>`}
+                        </div>
+                        <div class="overflow-hidden text-left flex-1">
+                            <h4 class="text-xs font-bold theme-text-main truncate">${track.name}</h4>
+                            <p class="text-[9px] theme-text-sub mt-0.5">${track.size}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <select onchange="addTrackToPlaylist('${track.id}', this)" class="bg-black/40 border theme-border rounded-md px-1.5 py-1 text-[10px] font-bold theme-accent-color outline-none cursor-pointer max-w-[90px] hover:border-orange-500/50">
+                            ${selectOptions}
+                        </select>
+                        <button onclick="removeTrack('${track.id}', event)" class="theme-text-sub hover:text-red-400 p-1.5 transition" title="Delete Track">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
+                    </div>
+                `;
+                listContainer.appendChild(row);
+            });
+        }
 
+        function updatePlaylistsUI() {
+            const shelfEmpty = document.getElementById('playlist-shelf-empty');
+            const shelfList = document.getElementById('playlist-shelf-list');
+            if (!shelfEmpty || !shelfList) return;
+            const filteredPlaylists = playlistsDatabase.filter(pl => activeFolderFilter === null ? true : pl.folder === activeFolderFilter);
+            if (filteredPlaylists.length === 0) {
+                shelfEmpty.classList.remove('hidden'); shelfList.classList.add('hidden');
+                updateNowPlayingPlaylistBar(); return;
+            }
+            shelfEmpty.classList.add('hidden'); shelfList.classList.remove('hidden');
+            shelfList.innerHTML = '';
+            filteredPlaylists.forEach(pl => {
+                const folder = document.createElement('div');
+                folder.className = "theme-card-bg rounded-xl p-4 flex items-center justify-between border theme-border hover:border-orange-500/50 cursor-pointer transition shadow duration-150 relative group min-h-[70px]";
+                folder.onclick = () => enterPlaylistPortal(pl.id);
+                let coverHtml = `<div class="w-10 h-10 rounded bg-black/60 border theme-border flex items-center justify-center shrink-0 overflow-hidden"><i class="fa-solid fa-compact-disc theme-accent-color text-xs"></i></div>`;
+                if (pl.coverData) {
+                    coverHtml = `<div class="w-10 h-10 rounded border theme-border shrink-0 overflow-hidden bg-black/40"><img src="${pl.coverData}" class="w-full h-full object-cover"></div>`;
+                }
+
+                // If the playlist is the default Liked Songs, show a locked heart icon. Otherwise, show the delete trash button.
+                let actionBtnHtml = (pl.isDefault || pl.id === "liked-songs-default-id") ? `
+                    <span class="absolute top-4 right-4 text-pink-500 transition cursor-default" title="Liked Songs (System Locked)">
+                        <i class="fa-solid fa-heart text-[10px]"></i>
+                    </span>
+                ` : `
+                    <button onclick="event.stopPropagation(); deletePlaylist('${pl.id}')" class="absolute top-4 right-4 text-zinc-600 hover:text-red-400 transition" title="Delete Playlist">
+                        <i class="fa-solid fa-trash-can text-[10px]"></i>
+                    </button>
+                `;
+
+                folder.innerHTML = `
+                    <div class="flex items-center gap-3 min-w-0 pr-8 text-left">
+                        ${coverHtml}
+                        <div class="overflow-hidden">
+                            <h4 class="text-xs font-black theme-text-main truncate">${pl.name}</h4>
+                            <p class="text-[9px] theme-text-sub mt-0.5">${pl.tracks.length} track${pl.tracks.length === 1 ? '' : 's'}</p>
+                        </div>
+                    </div>
+                    ${actionBtnHtml}
+                `;
+                shelfList.appendChild(folder);
+            });
+            updateNowPlayingPlaylistBar();
+        }
+
+        function deletePlaylist(id) {
+            // Programmatically guard the default Liked Songs playlist from deletion
+            if (id === "liked-songs-default-id") return;
+
+            if (currentlyPlayingPlaylistId === id) {
+                audioPlayer.pause(); audioPlayer.src = "";
+                currentTrackIndex = -1; currentlyPlayingTrackId = null; currentlyPlayingPlaylistId = null;
+                updateDeckInfo("No Track Active", "SkullyPlayer session", false);
+            }
+            if (activePlaylistId === id) { activePlaylistId = null; exitPlaylistPortal(); }
+            playlistsDatabase = playlistsDatabase.filter(pl => pl.id !== id);
+            updatePlaylistsUI(); updateTracksUI(); saveSessionData();
+        }
+
+        function filterPlaylistsByFolder(folderName) {
+            activeFolderFilter = folderName;
+            const heading = document.getElementById('shelf-heading-title');
+            const backBtn = document.getElementById('folder-back-btn');
+            if (heading) heading.textContent = folderName ? `Folder: ${folderName}` : "My Playlists";
+            if (backBtn) { if (folderName) backBtn.classList.remove('hidden'); else backBtn.classList.add('hidden'); }
+            updateFoldersUI(); updatePlaylistsUI();
+        }
+
+        function clearActiveFolderFilter() { filterPlaylistsByFolder(null); }
+
+        // Remove folder category cleanly
+        function deleteFolder(folderName) {
+            foldersDatabase = foldersDatabase.filter(f => f !== folderName);
+            playlistsDatabase.forEach(pl => { if (pl.folder === folderName) pl.folder = null; });
+            if (activeFolderFilter === folderName) activeFolderFilter = null;
+            updateFoldersUI(); updatePlaylistsUI(); saveSessionData();
+        }
+
+        function setSleepTimer(minutes) {
+            if (sleepTimerTimeout) { clearTimeout(sleepTimerTimeout); sleepTimerTimeout = null; sleepTimerEndTime = null; }
+            if (minutes === "off") { updateSleepTimerDisplay("off"); return; }
+            const ms = parseInt(minutes) * 60 * 1000;
+            sleepTimerEndTime = Date.now() + ms;
+            sleepTimerTimeout = setTimeout(() => {
+                audioPlayer.pause();
+                const titleLabel = document.getElementById('deck-song-title');
+                updateDeckInfo(audioPlayer.src && titleLabel ? titleLabel.textContent : "No Track Active", "Sleep Timer Ended", false);
+                updatePortalQueueUI();
+                const select = document.getElementById('player-sleep-timer');
+                if (select) select.value = "off";
+                setSleepTimer("off");
+            }, ms);
+            updateSleepTimerDisplay(minutes);
+        }
+
+        function updateSleepTimerDisplay(status) {
+            const select = document.getElementById('player-sleep-timer');
+            if (!select) return;
+            select.style.color = status === "off" ? "" : "var(--musi-orange)";
+        }
+
+        function removeTrackFromPlaylist(playlistId, trackId) {
+            const playlist = playlistsDatabase.find(pl => pl.id === playlistId);
+            if (playlist) { playlist.tracks = playlist.tracks.filter(t => t.id !== trackId); saveSessionData(); updatePlaylistsUI(); }
+        }
+
+        function promptFileRelink(playlistId, trackId) {
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file'; fileInput.accept = 'audio/*';
+            fileInput.onchange = function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                const playlist = playlistsDatabase.find(pl => pl.id === playlistId);
+                if (playlist) {
+                    const track = playlist.tracks.find(t => t.id === trackId);
+                    if (track) {
+                        track.fileObject = file;
+                        track.size = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+                        saveFileToIndexedDB(trackId, file);
+                        saveSessionData(); updatePortalQueueUI();
+                        const index = playlist.tracks.findIndex(t => t.id === trackId);
+                        if (index !== -1) loadAndPlayTrackDirectly(index, playlistId);
+                    }
+                }
+            };
+            fileInput.click();
+        }
+
+        // --- DYNAMIC AUDIO TRANSITION & QUEUE HANDLING FUNCTIONS ---
+
+        async function loadAndPlayTrackDirectly(index, playlistId = null) {
+            const targetPlaylistId = playlistId || activePlaylistId || currentlyPlayingPlaylistId;
+            const playlist = playlistsDatabase.find(pl => pl.id === targetPlaylistId);
+            if (!playlist || index < 0 || index >= playlist.tracks.length) return;
+            if (currentTrackIndex === index && currentlyPlayingPlaylistId === targetPlaylistId && !audioPlayer.paused && !audioPlayer.ended) return;
             setupWebAudioContext();
+            currentTrackIndex = index;
+            const track = playlist.tracks[currentTrackIndex];
+            if (audioPlayer.src) URL.revokeObjectURL(audioPlayer.src);
+            const blob = await getFileFromIndexedDB(track.id);
+            if (blob) {
+                const localUrl = URL.createObjectURL(blob);
+                audioPlayer.src = localUrl;
+                currentlyPlayingTrackId = track.id;
+                currentlyPlayingPlaylistId = targetPlaylistId;
+            } else {
+                updateDeckInfo("File Unloaded Required (Tap Sync)", "Track not found in local storage", false, track.coverData);
+                return;
+            }
+            const seekSlider = document.getElementById('deck-seek-slider');
+            if (seekSlider) { seekSlider.value = 0; updateSliderProgressBackground(seekSlider, 0); }
+            updateDeckInfo(track.name, track.artist || "Unknown Artist", true, track.coverData);
+            audioPlayer.play().catch(err => console.log("Audio play error:", err));
+            updatePortalQueueUI();
+            updateNavigationButtonsState(playlist);
+            updateNowPlayingPlaylistBar();
+        }
 
+        function togglePlayPause() {
+            const targetPlaylistId = activePlaylistId || currentlyPlayingPlaylistId;
+            const playlist = playlistsDatabase.find(pl => pl.id === targetPlaylistId);
+            if (!playlist || playlist.tracks.length === 0) return;
+            if (currentTrackIndex === -1) { loadAndPlayTrackDirectly(0, targetPlaylistId); return; }
+            setupWebAudioContext();
             const icon = document.getElementById('play-pause-icon');
-
             if (audioPlayer.paused) {
                 audioPlayer.play().catch(e => console.log(e));
                 if (icon) icon.className = "fa-solid fa-pause text-[10px]";
@@ -2281,165 +1348,230 @@
                 audioPlayer.pause();
                 if (icon) icon.className = "fa-solid fa-play text-[10px] ml-0.5";
             }
-            updatePortalQueueUI();
-            updateNowPlayingPlaylistBar();
+            updatePortalQueueUI(); updateNowPlayingPlaylistBar();
         }
 
-        function resetAppCache() {
-            audioPlayer.pause();
-            audioPlayer.src = "";
-            currentTrackIndex = -1;
-            activePlaylistId = null;
-            currentlyPlayingTrackId = null;
-            currentlyPlayingPlaylistId = null;
-
-            tracksDatabase = [];
-            playlistsDatabase = [];
-            foldersDatabase = [];
-            
-            updateTracksUI();
-            updateSettingsStats();
-            updatePlaylistsUI();
-            exitPlaylistPortal();
-            
-            if (db) {
-                try {
-                    const transaction = db.transaction(["stateStore"], "readwrite");
-                    const store = transaction.objectStore("stateStore");
-                    store.clear();
-                } catch (e) {
-                    console.error("Clear IndexedDB failed:", e);
+        function playNextTrack() {
+            const playlist = playlistsDatabase.find(pl => pl.id === currentlyPlayingPlaylistId);
+            if (!playlist || playlist.tracks.length === 0) return;
+            if (isShuffle) {
+                loadAndPlayTrackDirectly(Math.floor(Math.random() * playlist.tracks.length), currentlyPlayingPlaylistId);
+            } else {
+                let nextIndex = currentTrackIndex + 1;
+                if (nextIndex < playlist.tracks.length) {
+                    loadAndPlayTrackDirectly(nextIndex, currentlyPlayingPlaylistId);
+                } else {
+                    audioPlayer.pause(); audioPlayer.currentTime = 0;
+                    const activeTr = playlist.tracks[currentTrackIndex];
+                    updateDeckInfo(activeTr ? activeTr.name : "No Track Active", activeTr ? (activeTr.artist || "Unknown Artist") : "SkullyPlayer session", false, activeTr ? activeTr.coverData : null);
+                    const seekSlider = document.getElementById('deck-seek-slider');
+                    if (seekSlider) { seekSlider.value = 0; updateSliderProgressBackground(seekSlider, 0); }
+                    updatePortalQueueUI(); updateNowPlayingPlaylistBar();
                 }
             }
-            
-            localStorage.removeItem('skully_tracks');
-            localStorage.removeItem('skully_playlists');
-            localStorage.removeItem('skully_folders');
-            localStorage.removeItem('skully_settings');
-
-            resetThemeToDefault();
-            
-            const hwToggle = document.getElementById('hw-accel-toggle');
-            if (hwToggle) hwToggle.checked = true;
-            toggleHardwareAcceleration(true);
-            
-            const batteryToggle = document.getElementById('battery-saver-toggle');
-            if (batteryToggle) batteryToggle.checked = false;
-            toggleBatterySaver(false);
         }
 
-        function resetThemeToDefault() {
-            const bgImg = document.getElementById('app-bg-image');
-            if (bgImg) {
-                bgImg.style.opacity = '0';
-                bgImg.removeAttribute('src');
-            }
+        function playPrevTrack() {
+            const playlist = playlistsDatabase.find(pl => pl.id === currentlyPlayingPlaylistId);
+            if (!playlist || playlist.tracks.length === 0) return;
+            let prevIndex = currentTrackIndex - 1;
+            if (prevIndex >= 0) loadAndPlayTrackDirectly(prevIndex, currentlyPlayingPlaylistId);
+        }
 
+        function reorderSongsInPlaylist(fromIndex, toIndex) {
+            const playlist = playlistsDatabase.find(pl => pl.id === activePlaylistId);
+            if (!playlist || fromIndex === toIndex) return;
+            const songToMove = playlist.tracks.splice(fromIndex, 1)[0];
+            playlist.tracks.splice(toIndex, 0, songToMove);
+            if (currentlyPlayingPlaylistId === activePlaylistId && currentlyPlayingTrackId) {
+                currentTrackIndex = playlist.tracks.findIndex(t => t.id === currentlyPlayingTrackId);
+            }
+            updatePortalQueueUI(); updateNavigationButtonsState(playlist); saveSessionData();
+        }
+
+        function updatePortalQueueUI() {
+            const listContainer = document.getElementById('portal-queue-list');
+            const emptyState = document.getElementById('portal-empty-state');
+            const playlist = playlistsDatabase.find(pl => pl.id === activePlaylistId);
+            if (!listContainer || !emptyState) return;
+            if (!playlist || playlist.tracks.length === 0) {
+                emptyState.classList.remove('hidden'); listContainer.classList.add('hidden'); return;
+            }
+            const searchQuery = (document.getElementById('playlist-portal-search')?.value || "").toLowerCase().trim();
+            const filteredTracks = playlist.tracks.map((t, idx) => ({ ...t, originalIndex: idx }))
+                .filter(track => track.name.toLowerCase().includes(searchQuery));
+            emptyState.classList.add('hidden'); listContainer.classList.remove('hidden');
+            listContainer.innerHTML = '';
+            filteredTracks.forEach((track) => {
+                const isCurrent = (track.originalIndex === currentTrackIndex) && (currentlyPlayingPlaylistId === activePlaylistId);
+                const row = document.createElement('div');
+                row.className = `flex items-center justify-between p-3 border rounded-xl select-none cursor-pointer transition duration-150 ${isCurrent ? 'theme-card-bg border-orange-500/50' : 'bg-black/10 border-transparent hover:border-zinc-800 hover:bg-black/30'}`;
+                row.onclick = async () => {
+                    const blob = await getFileFromIndexedDB(track.id);
+                    if (blob) { loadAndPlayTrackDirectly(track.originalIndex); } else { promptFileRelink(playlist.id, track.id); }
+                };
+                row.setAttribute('draggable', 'true');
+                row.addEventListener('dragstart', (e) => { e.dataTransfer.setData('text/plain', track.originalIndex); row.classList.add('opacity-40'); });
+                row.addEventListener('dragend', () => row.classList.remove('opacity-40'));
+                row.addEventListener('dragover', (e) => e.preventDefault());
+                row.addEventListener('drop', (e) => { e.preventDefault(); reorderSongsInPlaylist(parseInt(e.dataTransfer.getData('text/plain')), track.originalIndex); });
+                const indexDisplay = (track.originalIndex + 1) < 10 ? `0${track.originalIndex + 1}` : (track.originalIndex + 1);
+                const trackArtist = track.artist || "Unknown Artist";
+                row.innerHTML = `
+                    <div class="flex items-center gap-3.5 overflow-hidden flex-1 min-w-0 text-left">
+                        <span class="text-zinc-600 hover:text-white cursor-grab active:cursor-grabbing p-1"><i class="fa-solid fa-grip-vertical text-[10px]"></i></span>
+                        <span class="text-[9px] font-mono text-zinc-600 w-5 shrink-0">${indexDisplay}</span>
+                        <div class="w-8 h-8 rounded-lg border theme-border shrink-0 overflow-hidden flex items-center justify-center bg-black/45">
+                            ${track.coverData ? `<img src="${track.coverData}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-music text-[9px] theme-accent-color"></i>`}
+                        </div>
+                        <div class="overflow-hidden flex-1 min-w-0">
+                            <h4 class="text-xs font-bold ${isCurrent ? 'theme-accent-color' : 'theme-text-main'} truncate">${track.name}</h4>
+                            <p class="text-[9px] theme-text-sub mt-0.5">${trackArtist}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1.5 shrink-0 relative z-10">
+                        <button onclick="event.stopPropagation(); openEditSongModal('${playlist.id}', '${track.id}')" class="text-zinc-500 hover:text-orange-500 p-1.5 transition" title="Edit Metadata"><i class="fa-solid fa-pen text-[9px]"></i></button>
+                        <button onclick="event.stopPropagation(); removeSongFromPlaylistPortal('${track.id}')" class="text-zinc-500 hover:text-red-400 p-1.5 transition" title="Delete Song"><i class="fa-solid fa-xmark text-[10px]"></i></button>
+                    </div>
+                `;
+                listContainer.appendChild(row);
+            });
+        }
+
+        function removeSongFromPlaylistPortal(trackId) {
+            const playlist = playlistsDatabase.find(pl => pl.id === activePlaylistId);
+            if (!playlist) return;
+            if (currentlyPlayingTrackId === trackId) {
+                audioPlayer.pause(); audioPlayer.src = "";
+                currentTrackIndex = -1; currentlyPlayingTrackId = null; currentlyPlayingPlaylistId = null;
+                updateDeckInfo("No Track Active", "SkullyPlayer session", false);
+            } else {
+                const deletedIndex = playlist.tracks.findIndex(t => t.id === trackId);
+                if (deletedIndex !== -1 && deletedIndex < currentTrackIndex) currentTrackIndex = Math.max(0, currentTrackIndex - 1);
+            }
+            playlist.tracks = playlist.tracks.filter(t => t.id !== trackId);
+            document.getElementById('active-portal-counter').textContent = `${playlist.tracks.length} tracks uploaded`;
+            updatePortalQueueUI(); updateNavigationButtonsState(playlist); saveSessionData();
+        }
+
+        function updateNavigationButtonsState(playlist) {
+            const prevBtn = document.getElementById('player-btn-prev');
+            const nextBtn = document.getElementById('player-btn-next');
+            if (!playlist) return;
+            if (prevBtn) {
+                if (currentTrackIndex > 0) prevBtn.classList.remove('opacity-30', 'cursor-not-allowed');
+                else prevBtn.classList.add('opacity-30', 'cursor-not-allowed');
+            }
+            if (nextBtn) {
+                if (currentTrackIndex < playlist.tracks.length - 1 && currentTrackIndex !== -1) nextBtn.classList.remove('opacity-30', 'cursor-not-allowed');
+                else nextBtn.classList.add('opacity-30', 'cursor-not-allowed');
+            }
+        }
+
+        function applyActiveSettingsToUI() {
             const root = document.documentElement;
-            
-            root.style.setProperty('--musi-orange', '#ff5e3a');
-            root.style.setProperty('--slider-fill-color', '#ff5e3a');
-            root.style.setProperty('--text-main', '#f4f4f5');
-            root.style.setProperty('--text-sub', '#a1a1aa');
-            root.style.setProperty('--card-rgb', '18, 18, 23');
-            root.style.setProperty('--card-opacity', '0.80');
-            root.style.setProperty('--card-blur', '12px');
-            root.style.setProperty('--body-bg', 'linear-gradient(135deg, #121217 0%, #070709 100%)');
 
-            const accentPicker = document.getElementById('accent-color-picker');
-            const sliderFillPicker = document.getElementById('slider-fill-color-picker');
-            const textPicker = document.getElementById('text-main-picker');
-            const subPicker = document.getElementById('text-sub-picker');
-            const cardPicker = document.getElementById('card-bg-picker');
-            const bgPicker = document.getElementById('bg-solid-color-picker');
-            const slider = document.getElementById('box-transparency-slider');
-            const valLabel = document.getElementById('transparency-val');
-            const blurSlider = document.getElementById('box-blur-slider');
-            const blurLabel = document.getElementById('blur-val');
-            const cfSlider = document.getElementById('crossfade-slider');
-
-            if (accentPicker) accentPicker.value = '#ff5e3a';
-            if (sliderFillPicker) sliderFillPicker.value = '#ff5e3a';
-            if (textPicker) textPicker.value = '#f4f4f5';
-            if (subPicker) subPicker.value = '#a1a1aa';
-            if (cardPicker) cardPicker.value = '#121217';
-            if (bgPicker) bgPicker.value = '#000000';
-            if (slider) slider.value = '80';
-            if (valLabel) valLabel.textContent = '80%';
-            if (blurSlider) blurSlider.value = '12';
-            if (blurLabel) blurLabel.textContent = '12px';
-            if (cfSlider) cfSlider.value = '0';
-
-            appSettings = {
-                accentColor: "#ff5e3a",
-                sliderFillColor: "#ff5e3a",
-                textColorMain: "#f4f4f5",
-                textColorSub: "#a1a1aa",
-                cardBgHex: "#121217",
-                cardOpacity: 80,
-                cardBlurVal: 12,
-                playstyleMode: "full",
-                uploadedBgData: null,
-                hwAccel: true,
-                batterySaver: false
-            };
-            saveSessionData();
-        }
-
-        // Initialize DOM events and slider bindings safely
-        window.addEventListener('DOMContentLoaded', () => {
-            // iOS check
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-            if (isIOS) {
-                const notice = document.getElementById('ios-volume-notice');
-                if (notice) {
-                    notice.textContent = "iOS overrides slider with master physical keys";
-                    notice.classList.remove('hidden');
-                }
+            if (appSettings.accentColor) {
+                root.style.setProperty('--musi-orange', appSettings.accentColor);
+                const accentPicker = document.getElementById('accent-color-picker');
+                if (accentPicker) accentPicker.value = appSettings.accentColor;
             }
 
-            // Drag and drop events
+            if (appSettings.sliderFillColor) {
+                root.style.setProperty('--slider-fill-color', appSettings.sliderFillColor);
+                const sliderPicker = document.getElementById('slider-fill-color-picker');
+                if (sliderPicker) sliderPicker.value = appSettings.sliderFillColor;
+            }
+
+            if (appSettings.textColorMain) {
+                root.style.setProperty('--text-main', appSettings.textColorMain);
+                const textMainPicker = document.getElementById('text-main-picker');
+                if (textMainPicker) textMainPicker.value = appSettings.textColorMain;
+            }
+
+            if (appSettings.textColorSub) {
+                root.style.setProperty('--text-sub', appSettings.textColorSub);
+                const textSubPicker = document.getElementById('text-sub-picker');
+                if (textSubPicker) textSubPicker.value = appSettings.textColorSub;
+            }
+
+            if (appSettings.cardBgHex) {
+                const hex = appSettings.cardBgHex;
+                const r = parseInt(hex.slice(1,3), 16);
+                const g = parseInt(hex.slice(3,5), 16);
+                const b = parseInt(hex.slice(5,7), 16);
+                root.style.setProperty('--card-rgb', `${r}, ${g}, ${b}`);
+                const cardPicker = document.getElementById('card-bg-picker');
+                if (cardPicker) cardPicker.value = appSettings.cardBgHex;
+            }
+
+            if (appSettings.cardOpacity !== undefined) {
+                root.style.setProperty('--card-opacity', (appSettings.cardOpacity / 100).toFixed(2));
+                const opacitySlider = document.getElementById('box-transparency-slider');
+                const opacityVal = document.getElementById('transparency-val');
+                if (opacitySlider) opacitySlider.value = appSettings.cardOpacity;
+                if (opacityVal) opacityVal.textContent = appSettings.cardOpacity + '%';
+            }
+
+            if (appSettings.cardBlurVal !== undefined) {
+                root.style.setProperty('--card-blur', appSettings.cardBlurVal + 'px');
+                const blurSlider = document.getElementById('box-blur-slider');
+                const blurVal = document.getElementById('blur-val');
+                if (blurSlider) blurSlider.value = appSettings.cardBlurVal;
+                if (blurVal) blurVal.textContent = appSettings.cardBlurVal + 'px';
+            }
+
+            if (appSettings.crossfadeVal !== undefined) {
+                const crossfadeSlider = document.getElementById('crossfade-slider');
+                const crossfadeValEl = document.getElementById('settings-crossfade-val');
+                if (crossfadeSlider) crossfadeSlider.value = appSettings.crossfadeVal;
+                if (crossfadeValEl) crossfadeValEl.textContent = appSettings.crossfadeVal > 0 ? `${appSettings.crossfadeVal}s` : 'Disabled (0s)';
+            }
+
+            if (appSettings.hwAccel !== undefined) {
+                const hwToggle = document.getElementById('hw-accel-toggle');
+                if (hwToggle) hwToggle.checked = appSettings.hwAccel;
+                toggleHardwareAcceleration(appSettings.hwAccel);
+            }
+
+            if (appSettings.batterySaver !== undefined) {
+                const bsToggle = document.getElementById('battery-saver-toggle');
+                if (bsToggle) bsToggle.checked = appSettings.batterySaver;
+                if (appSettings.batterySaver) toggleBatterySaver(true);
+            }
+
+            if (appSettings.uploadedBgData) {
+                const bgImage = document.getElementById('app-bg-image');
+                const bgContainer = document.getElementById('app-bg-container');
+                if (bgImage) { bgImage.src = appSettings.uploadedBgData; bgImage.style.opacity = '1'; }
+                if (bgContainer) bgContainer.style.background = 'transparent';
+            }
+
+            const playstyleBtn = document.getElementById('player-btn-playstyle');
+            if (playstyleBtn) {
+                playstyleBtn.textContent = (appSettings.playstyleMode || 'full') === 'full' ? 'Playstyle: Full' : 'Playstyle: Single';
+            }
+        }
+
+        // --- GLOBAL INITIALIZATION AND DOM LOAD EVENT HANDLERS ---
+
+        window.addEventListener('DOMContentLoaded', () => {
             const dropzone = document.getElementById('dropzone');
             if (dropzone) {
-                dropzone.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    dropzone.classList.add('border-orange-500', 'bg-orange-500/5');
-                });
-                dropzone.addEventListener('dragleave', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    dropzone.classList.remove('border-orange-500', 'bg-orange-500/5');
-                });
-                dropzone.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    dropzone.classList.remove('border-orange-500', 'bg-orange-500/5');
-                    if (e.dataTransfer.files) {
-                        processFiles(e.dataTransfer.files);
-                    }
-                });
+                dropzone.addEventListener('dragover', (e) => { e.preventDefault(); e.stopPropagation(); dropzone.classList.add('border-orange-500', 'bg-orange-500/5'); });
+                dropzone.addEventListener('dragleave', (e) => { e.preventDefault(); e.stopPropagation(); dropzone.classList.remove('border-orange-500', 'bg-orange-500/5'); });
+                dropzone.addEventListener('drop', (e) => { e.preventDefault(); e.stopPropagation(); dropzone.classList.remove('border-orange-500', 'bg-orange-500/5'); if (e.dataTransfer.files) processFiles(e.dataTransfer.files); });
             }
 
-            // Seeking slider events (Fixed duplicate bindings and missing references)
             const activeSeekSlider = document.getElementById('deck-seek-slider');
             if (activeSeekSlider) {
-                const startDrag = () => {
-                    isUserDraggingSeek = true;
-                    wasPlayingBeforeDrag = !audioPlayer.paused;
-                    if (wasPlayingBeforeDrag) {
-                        audioPlayer.pause();
-                    }
-                };
-
+                const startDrag = () => { isUserDraggingSeek = true; wasPlayingBeforeDrag = !audioPlayer.paused; if (wasPlayingBeforeDrag) audioPlayer.pause(); };
                 activeSeekSlider.addEventListener('mousedown', startDrag);
                 activeSeekSlider.addEventListener('touchstart', startDrag, { passive: true });
-
                 activeSeekSlider.addEventListener('input', (e) => {
                     const val = e.target.value;
                     updateSliderProgressBackground(activeSeekSlider, val);
-                    
-                    if (!isNaN(audioPlayer.duration)) {
+                    if (!isNaN(audioPlayer.duration) && audioPlayer.duration !== Infinity) {
                         const dragTime = (val / 100) * audioPlayer.duration;
                         const currentTimeEl = document.getElementById('deck-time-current');
                         const totalTimeEl = document.getElementById('deck-time-total');
@@ -2449,51 +1581,61 @@
                 });
             }
 
-            // Global window release handlers to prevent frozen seek state (Critical bugfix!)
             const endDrag = () => {
                 if (!isUserDraggingSeek) return;
                 isUserDraggingSeek = false;
-                if (activeSeekSlider) {
-                    seekAudio(activeSeekSlider.value);
-                }
-                if (wasPlayingBeforeDrag) {
-                    audioPlayer.play().catch(e => console.log(e));
-                }
-                updatePortalQueueUI(); 
+                if (activeSeekSlider) seekAudio(activeSeekSlider.value);
+                if (wasPlayingBeforeDrag) audioPlayer.play().catch(e => console.log(e));
+                updatePortalQueueUI();
             };
-
             window.addEventListener('mouseup', endDrag);
             window.addEventListener('touchend', endDrag);
 
-            // Audio Player ending transition crossfade calculations (Feature 5)
+            setInterval(() => { if (hasPendingChanges) { saveSessionData(); hasPendingChanges = false; } }, 5000);
+
             audioPlayer.addEventListener('timeupdate', () => {
-                if (isNaN(audioPlayer.duration) || isUserDraggingSeek) return;
-                
-                // Crossfade Logic Trigger (Feature 5)
+                const current = audioPlayer.currentTime || 0;
+                const duration = (audioPlayer.duration && !isNaN(audioPlayer.duration) && audioPlayer.duration !== Infinity) ? audioPlayer.duration : 0;
+                const currentTimeEl = document.getElementById('deck-time-current');
+                if (currentTimeEl && !isUserDraggingSeek) currentTimeEl.textContent = formatTime(current);
+                if (duration > 0) {
+                    const totalTimeEl = document.getElementById('deck-time-total');
+                    if (totalTimeEl && !isUserDraggingSeek) totalTimeEl.textContent = "-" + formatTime(duration - current);
+                    if (!isUserDraggingSeek) {
+                        const percent = (current / duration) * 100;
+                        const seekSlider = document.getElementById('deck-seek-slider');
+                        if (seekSlider) { seekSlider.value = percent; updateSliderProgressBackground(seekSlider, percent); }
+                    }
+                } else {
+                    const totalTimeEl = document.getElementById('deck-time-total');
+                    if (totalTimeEl && !isUserDraggingSeek) totalTimeEl.textContent = "-0:00";
+                }
                 const crossfadeSec = appSettings.crossfadeVal || 0;
-                if (crossfadeSec > 0 && (appSettings.playstyleMode || "full") === "full" && !isRepeat) {
-                    const remainingTime = audioPlayer.duration - audioPlayer.currentTime;
-                    // If we are within the crossfade threshold and next track exists
+                if (crossfadeSec > 0 && (appSettings.playstyleMode || "full") === "full" && !isRepeat && duration > 0) {
+                    const remainingTime = duration - current;
                     if (remainingTime <= crossfadeSec && remainingTime > 0.3) {
                         const playlist = playlistsDatabase.find(pl => pl.id === currentlyPlayingPlaylistId);
                         if (playlist && currentTrackIndex < playlist.tracks.length - 1) {
-                            // Fade-out active gain node
-                            if (gainNode) {
-                                gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + remainingTime);
-                            }
+                            if (gainNode) { gainNode.gain.setValueAtTime(gainNode.gain.value, audioCtx.currentTime); gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + remainingTime); }
                         }
                     }
                 }
             });
 
+            audioPlayer.addEventListener('loadedmetadata', () => {
+                const currentTimeEl = document.getElementById('deck-time-current');
+                const totalTimeEl = document.getElementById('deck-time-total');
+                if (currentTimeEl) currentTimeEl.textContent = "0:00";
+                if (totalTimeEl) totalTimeEl.textContent = "-" + formatTime(audioPlayer.duration);
+                const seekSlider = document.getElementById('deck-seek-slider');
+                if (seekSlider) { seekSlider.value = 0; updateSliderProgressBackground(seekSlider, 0); }
+            });
+
             audioPlayer.addEventListener('ended', () => {
-                if (isRepeat) {
-                    audioPlayer.currentTime = 0;
-                    audioPlayer.play();
-                } else {
+                if (isRepeat) { audioPlayer.currentTime = 0; audioPlayer.play(); } 
+                else {
                     const playstyle = appSettings.playstyleMode || "full";
                     if (playstyle === "full") {
-                        // Restore gain node level if crossfaded (Feature 5)
                         if (gainNode) {
                             gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
                             const volValue = document.getElementById('deck-volume-slider')?.value || 80;
@@ -2501,16 +1643,11 @@
                         }
                         playNextTrack();
                     } else {
-                        // Playstyle Single: stop and reset
-                        audioPlayer.pause();
-                        audioPlayer.currentTime = 0;
+                        audioPlayer.pause(); audioPlayer.currentTime = 0;
                         const playlist = playlistsDatabase.find(pl => pl.id === currentlyPlayingPlaylistId);
                         const activeTr = playlist ? playlist.tracks[currentTrackIndex] : null;
                         updateDeckInfo(activeTr ? activeTr.name : "No Track Active", activeTr ? (activeTr.artist || "Unknown Artist") : "SkullyPlayer session", false, activeTr ? activeTr.coverData : null);
-                        if (activeSeekSlider) {
-                            activeSeekSlider.value = 0;
-                            updateSliderProgressBackground(activeSeekSlider, 0);
-                        }
+                        if (activeSeekSlider) { activeSeekSlider.value = 0; updateSliderProgressBackground(activeSeekSlider, 0); }
                         updatePortalQueueUI();
                     }
                 }
@@ -2524,6 +1661,170 @@
                 applyActiveSettingsToUI();
             });
         });
+
+        // Feature helpers
+        function handleFileSelection(event) { if (event.target.files) processFiles(event.target.files); }
+        function processFiles(files) {
+            Array.from(files).forEach(file => {
+                if (!file.type.startsWith('audio/')) return;
+                const id = crypto.randomUUID();
+                const sizeMB = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+                
+                extractID3Cover(file).then(coverUrl => {
+                    tracksDatabase.push({ id, name: file.name.replace(/\.[^/.]+$/, ""), size: sizeMB, coverData: coverUrl || null });
+                    saveFileToIndexedDB(id, file);
+                    updateTracksUI(); 
+                    updateSettingsStats(); 
+                    saveSessionData();
+                });
+            });
+        }
+        
+        // Add single track to playlist & remove from imported queue
+        function addTrackToPlaylist(trackId, selectEl) {
+            const playlistId = selectEl.value;
+            if (!playlistId) return;
+            const playlist = playlistsDatabase.find(pl => pl.id === playlistId);
+            const track = tracksDatabase.find(t => t.id === trackId);
+            if (!playlist || !track) return;
+            const alreadyIn = playlist.tracks.some(t => t.id === trackId);
+            if (!alreadyIn) {
+                playlist.tracks.push({ id: track.id, name: track.name, artist: "Unknown Artist", size: track.size, coverData: track.coverData });
+            }
+            
+            // Remove the added song from the imported home queue
+            tracksDatabase = tracksDatabase.filter(t => t.id !== trackId);
+            
+            selectEl.value = "";
+            updatePlaylistsUI(); 
+            updateTracksUI();
+            updateSettingsStats();
+            saveSessionData();
+        }
+
+        // Add all tracks to playlist & clear imported queue
+        function bulkAddSongsToPlaylist() {
+            const select = document.getElementById('bulk-playlist-select');
+            if (!select || !select.value) return;
+            const playlist = playlistsDatabase.find(pl => pl.id === select.value);
+            if (!playlist) return;
+            tracksDatabase.forEach(track => {
+                if (!playlist.tracks.some(t => t.id === track.id)) {
+                    playlist.tracks.push({ id: track.id, name: track.name, artist: "Unknown Artist", size: track.size, coverData: track.coverData });
+                }
+            });
+            
+            // Clear the imported home queue once successfully migrated
+            tracksDatabase = [];
+            
+            select.value = "";
+            updatePlaylistsUI(); 
+            updateTracksUI();
+            updateSettingsStats();
+            saveSessionData();
+        }
+
+        function populateBulkSelectOptions() {
+            const select = document.getElementById('bulk-playlist-select');
+            if (!select) return;
+            select.innerHTML = '';
+            
+            // Add a default placeholder first
+            const defaultOpt = document.createElement('option');
+            defaultOpt.value = "";
+            defaultOpt.textContent = "Select Playlist...";
+            defaultOpt.disabled = true;
+            defaultOpt.selected = true;
+            defaultOpt.className = "bg-zinc-900 text-gray-500";
+            select.appendChild(defaultOpt);
+
+            playlistsDatabase.forEach(pl => {
+                const opt = document.createElement('option');
+                opt.value = pl.id; opt.textContent = pl.name;
+                opt.className = "bg-zinc-900 text-white";
+                select.appendChild(opt);
+            });
+        }
+
+        function adjustVolume(val) {
+            audioPlayer.volume = Math.min(1, val / 100);
+            if (gainNode) gainNode.gain.setValueAtTime(val / 100, audioCtx ? audioCtx.currentTime : 0);
+            const pct = document.getElementById('deck-volume-percentage');
+            if (pct) pct.textContent = val + '%';
+            const slider = document.getElementById('deck-volume-slider');
+            if (slider) updateSliderProgressBackground(slider, val);
+        }
+
+        function removeTrack(trackId, event) {
+            if (event) event.stopPropagation();
+            tracksDatabase = tracksDatabase.filter(t => t.id !== trackId);
+            removeFileFromIndexedDB(trackId);
+            updateTracksUI(); updateSettingsStats(); saveSessionData();
+        }
+
+        function createNewFolder() {
+            const input = document.getElementById('folder-name-input');
+            const name = input?.value.trim();
+            if (!name || foldersDatabase.includes(name)) return;
+            foldersDatabase.push(name);
+            if (input) input.value = '';
+            updateFoldersUI(); saveSessionData();
+        }
+
+        function jumpToPlayingPlaylist() {
+            if (currentlyPlayingPlaylistId) { switchTab('playlist'); enterPlaylistPortal(currentlyPlayingPlaylistId); }
+        }
+
+        function openEditSongModal(playlistId, trackId) {
+            editingPlaylistId = playlistId; editingTrackId = trackId;
+            const playlist = playlistsDatabase.find(pl => pl.id === playlistId);
+            const track = playlist?.tracks.find(t => t.id === trackId);
+            if (!track) return;
+            document.getElementById('edit-song-title-input').value = track.name;
+            document.getElementById('edit-song-artist-input').value = track.artist || '';
+            document.getElementById('edit-song-modal').classList.remove('hidden');
+        }
+
+        function closeEditSongModal() { document.getElementById('edit-song-modal').classList.add('hidden'); editingTrackId = null; editingPlaylistId = null; }
+
+        function saveTrackMetadata() {
+            if (!editingPlaylistId || !editingTrackId) return;
+            const playlist = playlistsDatabase.find(pl => pl.id === editingPlaylistId);
+            const track = playlist?.tracks.find(t => t.id === editingTrackId);
+            if (!track) return;
+            track.name = document.getElementById('edit-song-title-input').value.trim() || track.name;
+            track.artist = document.getElementById('edit-song-artist-input').value.trim() || "Unknown Artist";
+            closeEditSongModal(); updatePortalQueueUI();
+            if (currentlyPlayingTrackId === editingTrackId) updateDeckInfo(track.name, track.artist, !audioPlayer.paused, track.coverData);
+            saveSessionData();
+        }
+
+        function resetThemeToDefault() {
+            appSettings = { accentColor: "#ff5e3a", sliderFillColor: "#ff5e3a", textColorMain: "#f4f4f5", textColorSub: "#a1a1aa", cardBgHex: "#121217", cardOpacity: 80, cardBlurVal: 12, playstyleMode: "full", crossfadeVal: 0, uploadedBgData: null, hwAccel: true, batterySaver: false };
+            applyActiveSettingsToUI();
+            saveSessionData();
+        }
+
+        function resetAppCache() {
+            audioPlayer.pause(); audioPlayer.src = "";
+            tracksDatabase = []; playlistsDatabase = []; foldersDatabase = [];
+            currentTrackIndex = -1; currentlyPlayingTrackId = null; currentlyPlayingPlaylistId = null; activePlaylistId = null;
+            updateDeckInfo("No Track Active", "SkullyPlayer Workspace", false);
+            
+            // Enforce default Liked Songs playlist on cache reset
+            playlistsDatabase.unshift({
+                id: "liked-songs-default-id",
+                name: "Liked Songs",
+                folder: null,
+                coverData: null,
+                isDefault: true,
+                tracks: []
+            });
+
+            updateTracksUI(); updatePlaylistsUI(); updateFoldersUI(); updateSettingsStats();
+            exitPlaylistPortal();
+            saveSessionData();
+        }
     </script>
 </body>
 </html>
